@@ -1,0 +1,85 @@
+.yeni-urunler{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    height: 90vh;
+    width: 100vw;
+    max-width: 100%;
+    margin-bottom: 400px;
+}
+
+.yeni-urunler h1{
+    color:  #000F08;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.yeni-urunler h1 span{
+    color: #FF8D27;
+}
+
+.yeni-urunler hr{
+    width: 85%;
+    height: 1px;
+    border-radius: 8px;
+    background-color: rgba(0, 15, 8, 0.1);
+    border: none;
+    margin-bottom: 32px;
+}
+
+.yeni-urunler-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.product img{
+    width: 75px;
+    background-color: #FF8D27;
+    padding: 24px;
+    transition: 0.3s;
+    border-radius: 16px;
+}
+
+.product:hover img{
+    background-color: #FFEC62;
+}
+
+/* Desktop Responsive Query */
+
+@media screen and (min-width: 768px) {
+
+    .yeni-urunler{
+        margin-top: 200px;
+        margin-bottom: 400px;
+        gap: 24px;
+        height: 90vh;
+        width: 100vw;
+        max-width: 100%;
+    }
+    
+    .yeni-urunler h1{
+        font-size: 48px;
+        margin-bottom: 8px;
+    }
+
+    .yeni-urunler hr{
+        width: 85%;
+        height: 1px;
+        border-radius: 8px;
+        margin-bottom: 64px;
+    }
+    
+    .yeni-urunler-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 64px;
+    }
+
+    .product img{
+        width: 150px;
+        padding: 48px;
+        border-radius: 16px;
+    }
+}

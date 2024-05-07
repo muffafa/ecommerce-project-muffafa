@@ -1,0 +1,102 @@
+.teklifler{
+    width: 65%;
+    height: 60vh;
+    display: flex;
+    margin-bottom: 160px;
+    background: linear-gradient(180deg, #FFEC62 40%, #FFF );
+    margin: auto;
+    padding: 0 64px;
+}
+
+.teklifler-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.teklifler-left h1{
+    color: #000F08;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.teklifler-subtitle{
+    color: #FF8D27 !important;
+}
+
+.teklifler-left p{
+    color: #000F08;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.teklifler-left button{
+    padding: 12px 24px;
+    border-radius: 24px;
+    background-color: #FFF;
+    border: none;
+    color: #F16B44;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.teklifler-right{
+    display: none;;
+}
+
+/* Desktop Responsive Query */
+
+@media screen and (min-width: 768px) {
+
+    .teklifler{
+        width: 65%;
+        height: 60vh;
+        margin: auto;
+        padding: 0 160px;
+        border-radius: 16px;
+    }
+    
+    .teklifler-left h1{
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+    
+    .teklifler-left p{
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+    
+    .teklifler-left button{
+        padding: 24px 48px;
+        width: 50%;
+        border-radius: 64px;
+        background-color: #FFF;
+        border: none;
+        color: #F16B44;
+        font-size: 24px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.6s;
+    }
+
+    .teklifler-left button:hover{
+        box-shadow: inset 400px 0 0 0 #F16B44;
+        color: #FFF;
+    }
+
+    .teklifler-right{
+        flex: 1;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding-top: 48px;
+    }
+    
+    .teklifler-right img{
+        width: 500px;
+    }
+
+}
