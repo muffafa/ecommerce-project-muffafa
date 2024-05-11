@@ -8,6 +8,7 @@ import YeniUrunler from './Components/YeniUrunler/YeniUrunler'
 import Footer from './Components/Footer/Footer'
 import LoginSignup from './Pages/LoginSignup'
 import SingleProduct from './Components/SingleProduct/SingleProduct'
+import CartItems from './Components/CartItems/CartItems'
 
 function App() {
 

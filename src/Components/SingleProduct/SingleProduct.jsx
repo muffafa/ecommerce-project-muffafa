@@ -1,9 +1,12 @@
+import DescriptionBox from "../DescriptionBox/DescriptionBox"
+import RelatedProducts from "../RelatedProducts/RelatedProducts"
 import "./SingleProduct.css"
 
 function SingleProduct(){
 
     return(
 
+        <>
         <div className="single-product">
             <div className="single-product-left">
                 <div className="product-gallery">
@@ -30,6 +33,10 @@ function SingleProduct(){
                 <p></p>
             </div>
         </div>
+        <DescriptionBox></DescriptionBox>
+        <RelatedProducts></RelatedProducts>
+        </>
+        
 
     )
 
