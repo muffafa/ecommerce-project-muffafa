@@ -1,9 +1,9 @@
-import { useContext } from "react";
+//import { useContext } from "react";
 import "./CSS/AlisverisKategori.css"
 
 function AlisverisKategori(){
 
-    const {tum_urunler} = useContext(MarketContext);
+    //const {tum_urunler} = useContext(MarketContext);
 
     return(
 
