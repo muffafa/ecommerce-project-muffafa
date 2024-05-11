@@ -1,22 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   getCategories,
   getCategoryById,
   createCategory,
   updateCategory,
-  deleteCategory
-} = require('../controllers/categoryController');
+  deleteCategory,
+} = require("../controllers/categoryController");
+const { protect } = require("../middleware/authMiddleware");
 
-// Kategorileri getir ve yeni kategori ekle
-router.route('/')
-  .get(getCategories)
-  .post(createCategory);
+router
+  .route("/")
+  .get(getCategories) // Tüm kullanıcılar kategorileri görebilir
+  .post(protect, createCategory); // Sadece adminler kategori ekleyebilir
 
-// Tekil kategori işlemleri
-router.route('/:id')
-  .get(getCategoryById)
-  .put(updateCategory)
-  .delete(deleteCategory);
+router
+  .route("/:id")
+  .get(getCategoryById) // Tüm kullanıcılar belirli bir kategoriyi görebilir
+  .put(protect, updateCategory) // Sadece adminler kategori güncelleyebilir
+  .delete(protect, deleteCategory); // Sadece adminler kategori silebilir
 
 module.exports = router;

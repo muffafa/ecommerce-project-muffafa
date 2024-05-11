@@ -1,26 +1,29 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   getUsers,
   getUserById,
-  createUser,
+  registerUser,
   updateUser,
   deleteUser,
-  loginUser
-} = require('../controllers/userController');
+  loginUser,
+} = require("../controllers/userController");
+const { protect } = require("../middleware/authMiddleware");
 
-// Tüm kullanıcıları getir ve yeni kullanıcı ekle
-router.route('/')
-  .get(getUsers)
-  .post(createUser);
+// Genel kullanıcı işlemleri ve admin kontrolü
+router
+  .route("/")
+  .get(protect, getUsers) // Sadece adminler tüm kullanıcıları görebilir
+  .post(registerUser); // Herkes kayıt olabilir, admin kontrolü burada yapılmasın
 
-// Tekil kullanıcı işlemleri
-router.route('/:id')
-  .get(getUserById)
-  .put(updateUser)
-  .delete(deleteUser);
+// Kullanıcı girişi için ayrı bir rota
+router.post("/login", loginUser); // Herkes giriş yapabilir
 
-// Kullanıcı girişi
-router.post('/login', loginUser);
+// ID ile spesifik kullanıcı işlemleri, koruma altında
+router
+  .route("/:id")
+  .get(protect, getUserById) // Sadece adminler belirli bir kullanıcıyı görebilir
+  .put(protect, updateUser) // Sadece adminler kullanıcı güncelleyebilir
+  .delete(protect, deleteUser); // Sadece adminler kullanıcı silebilir
 
 module.exports = router;

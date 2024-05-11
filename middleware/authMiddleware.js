@@ -9,28 +9,24 @@ const protect = async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // Token'ı Bearer'dan ayır
       token = req.headers.authorization.split(" ")[1];
-
-      // Token'ı doğrula ve kullanıcı ID'sini al
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Kullanıcıyı ID kullanarak bul ve parola bilgisini getirme
       req.user = await User.findById(decoded.id).select("-password");
 
-      next();
+      if (req.user && req.user.isAdmin) {
+        next();
+      } else {
+        res
+          .status(401)
+          .json({ message: "Yetkisiz erişim, admin yetkisi gerekli." });
+      }
     } catch (error) {
-      console.error(error);
       res
         .status(401)
-        .json({ message: "Yetkilendirme başarısız, token geçersiz" });
+        .json({ message: "Token doğrulanamadı, yetkisiz erişim." });
     }
-  }
-
-  if (!token) {
-    res
-      .status(401)
-      .json({ message: "Yetkilendirme başarısız, token bulunamadı" });
+  } else {
+    res.status(401).json({ message: "Yetkilendirme tokenı bulunamadı." });
   }
 };
 
