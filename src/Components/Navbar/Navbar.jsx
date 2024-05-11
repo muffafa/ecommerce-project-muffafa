@@ -2,6 +2,7 @@ import "./Navbar.css"
 import logo from "../Assets/logo.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
+import { Link } from "react-router-dom";
 
 function Navbar(){
 
@@ -9,16 +10,22 @@ return(
 
     <div className="navbar">
         <div className="taptaze-logo">
-            <img src={logo} alt="TapTaze" />
+            <Link to={"/"}>
+                <img src={logo} alt="TapTaze" />
+            </Link>
         </div>
         <ul className="nav-menu">
-            <li className="nav-item">Market</li>
-            <li className="nav-item">Günlük İhtiyaç</li>
-            <li className="nav-item">Fırsat</li>
+            <Link to={"/market"}>
+                <li className="nav-item">Market</li>
+            </Link>
         </ul>
         <div className="nav-login-cart">
-            <button>Giriş Yap</button>
-            <FontAwesomeIcon className="icon-nav-cart" icon={faCartShopping}></FontAwesomeIcon>
+            <Link to={"/login"}>
+                <button>Giriş Yap</button>
+            </Link>
+            <Link to={"/cart"}>
+                <FontAwesomeIcon className="icon-nav-cart" icon={faCartShopping}></FontAwesomeIcon>
+            </Link>
             <div className="nav-cart-count">0</div>
         </div>
     </div>
