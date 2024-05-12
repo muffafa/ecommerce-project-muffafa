@@ -11,16 +11,24 @@ const protect = async (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
       req.user = await User.findById(decoded.id).select("-password");
 
-      next(); // Kullanıcıyı sonraki middleware'e ya da route handler'a geçir
+      if (!req.user) {
+        return res.status(401).json({ message: "Not authorized" });
+      }
+
+      next();
     } catch (error) {
-      res
-        .status(401)
-        .json({ message: "Token doğrulanamadı, yetkisiz erişim." });
+      return res.status(401).json({
+        message: "Not authorized, token failed",
+        error: error.message,
+      });
     }
   } else {
-    res.status(401).json({ message: "Yetkilendirme tokenı bulunamadı." });
+    return res
+      .status(401)
+      .json({ message: "Not authorized, no token provided" });
   }
 };
 
