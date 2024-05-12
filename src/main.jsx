@@ -5,14 +5,14 @@ import MarketContextProvider from "./Context/MarketContext.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
 import Register from "./Pages/Register.jsx";
-import SingleProduct from "./Components/SingleProduct/SingleProduct";
+import SingleProduct from "./Components/SingleProduct";
 import Market from "./Pages/Market.jsx";
 import Cart from "./Pages/Cart";
 import Admin from "./Pages/Admin.jsx";
 
-import ProductManagement from "./Components/ProductManagement/ProductManagement.jsx";
-import CategoryManagement from "./Components/CategoryManagement/CategoryManagement.jsx";
-import UserManagement from "./Components/UserManagement/UserManagement.jsx";
+import ProductManagement from "./Components/ProductManagement";
+import CategoryManagement from "./Components/CategoryManagement";
+import UserManagement from "./Components/UserManagement";
 
 import Layout from "./Layouts/Layout.jsx";
 

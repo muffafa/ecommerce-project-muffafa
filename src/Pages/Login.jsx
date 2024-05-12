@@ -30,6 +30,8 @@ function LoginSignup() {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data));
         login(data); // Kullanıcı bilgileriyle login fonksiyonunu çağır
         if (data.isAdmin) {
           navigate("/admin"); // Admin kullanıcılar için admin paneline yönlendir
