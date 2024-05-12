@@ -105,7 +105,6 @@ exports.loginUser = async (req, res) => {
 };
 
 // Kullanıcıyı güncelle
-// Kullanıcıyı güncelle
 exports.updateUser = async (req, res) => {
   const userId = req.params.id;
   const userMakingRequest = req.user._id;
