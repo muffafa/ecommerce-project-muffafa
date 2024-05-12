@@ -1,4 +1,4 @@
-import AdminNavBar from "../Components/AdminNavBar/AdminNavBar";
+import AdminNavBar from "../Components/AdminNavBar";
 import { Outlet } from "react-router-dom";
 
 const Admin = () => {
