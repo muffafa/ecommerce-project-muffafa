@@ -1,6 +1,7 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { Outlet, useLocation } from "react-router-dom";
+import AdminNavBar from "../Components/AdminNavBar";
 
 const Layout = () => {
   const location = useLocation();
@@ -8,7 +9,7 @@ const Layout = () => {
 
   return (
     <div>
-      {!isAdminRoute && <Navbar />}
+      {isAdminRoute ? <AdminNavBar /> : <Navbar />}
       <Outlet />
       <Footer />
     </div>
