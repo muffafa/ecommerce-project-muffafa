@@ -107,38 +107,45 @@ exports.loginUser = async (req, res) => {
 // Kullanıcıyı güncelle
 // Kullanıcıyı güncelle
 exports.updateUser = async (req, res) => {
+  const userId = req.params.id;
+  const userMakingRequest = req.user._id;
+  const isAdmin = req.user.isAdmin;
+
+  if (userId !== userMakingRequest.toString() && !isAdmin) {
+    return res.status(403).json({ message: "Bu işlem için yetkiniz yok." });
+  }
+
   try {
-    const { name, email, password, isAdmin } = req.body;
+    const { name, email, password } = req.body;
     const updateData = {};
 
-    // Check if name is provided and add to update data object
+    // İsim, e-posta ve yönetici durumu güncellemeleri
     if (name) updateData.name = name;
-    // Check if email is provided and add to update data object
     if (email) updateData.email = email;
-    // Check if isAdmin is provided and add to update data object
-    if (isAdmin !== undefined) updateData.isAdmin = isAdmin;
+    if (req.body.hasOwnProperty("isAdmin") && isAdmin) {
+      updateData.isAdmin = req.body.isAdmin;
+    }
 
-    // Only hash the password if it is provided
+    // Şifre yalnızca verilmişse güncellenir
     if (password) {
       const salt = await bcrypt.genSalt(10);
       updateData.password = await bcrypt.hash(password, salt);
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      updateData,
-      { new: true }
-    );
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
 
     if (!updatedUser) {
-      return res.status(404).json({ message: "User not found." });
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
     }
 
     res.json(updatedUser);
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Error updating user", error: error.message });
+    res.status(500).json({
+      message: "Kullanıcı güncellenirken bir hata oluştu",
+      error: error.message,
+    });
   }
 };
 
