@@ -1,9 +1,16 @@
 const Product = require("../models/Product");
 
-// Tüm ürünleri getir
+// Tüm ürünleri getir, isteğe bağlı olarak kategoriye göre filtrele
 exports.getProducts = async (req, res) => {
+  const categoryFilter = req.query.category
+    ? { category: req.query.category }
+    : {};
+
   try {
-    const products = await Product.find().populate("category", "name"); // Assuming you want to show category names
+    const products = await Product.find(categoryFilter).populate(
+      "category",
+      "name"
+    );
     res.json(products);
   } catch (error) {
     res
@@ -140,30 +147,24 @@ exports.purchaseProducts = async (req, res) => {
 
       await Promise.all(purchaseTransactions);
 
-      res
-        .status(200)
-        .json({
-          message: "Ürünler başarıyla satın alındı",
-          products: productChecks,
-        });
+      res.status(200).json({
+        message: "Ürünler başarıyla satın alındı",
+        products: productChecks,
+      });
     } else {
       // Stokta olmayan ürünler varsa hata mesajı döndür
       const unavailableProducts = productChecks.filter(
         (item) => !item.available
       );
-      res
-        .status(400)
-        .json({
-          message: "Bazı ürünler stokta yeterli miktarda değil",
-          details: unavailableProducts,
-        });
+      res.status(400).json({
+        message: "Bazı ürünler stokta yeterli miktarda değil",
+        details: unavailableProducts,
+      });
     }
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Ürün satın alma işlemi sırasında bir hata oluştu",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Ürün satın alma işlemi sırasında bir hata oluştu",
+      error: error.message,
+    });
   }
 };
