@@ -1,37 +1,53 @@
-import "./Navbar.css"
-import logo from "../Assets/logo.png"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
+import "./Navbar.css";
+import logo from "../Assets/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
-function Navbar(){
+function Navbar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-return(
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // Kullanıcıyı anasayfaya yönlendir
+  };
 
+  return (
     <div className="navbar">
-        <div className="taptaze-logo">
-            <Link to={"/"}>
-                <img src={logo} alt="TapTaze" />
-            </Link>
-        </div>
-        <ul className="nav-menu">
-            <Link to={"/market"}>
-                <li className="nav-item">Market</li>
-            </Link>
-        </ul>
-        <div className="nav-login-cart">
-            <Link to={"/login"}>
-                <button>Giriş Yap</button>
-            </Link>
-            <Link to={"/cart"}>
-                <FontAwesomeIcon className="icon-nav-cart" icon={faCartShopping}></FontAwesomeIcon>
-            </Link>
-            <div className="nav-cart-count">0</div>
-        </div>
+      <div className="taptaze-logo">
+        <Link to={"/"}>
+          <img src={logo} alt="TapTaze" />
+        </Link>
+      </div>
+      <ul className="nav-menu">
+        <Link to={"/market"}>
+          <li className="nav-item">Market</li>
+        </Link>
+      </ul>
+      <div className="nav-login-cart">
+        {user ? (
+          <div>
+            Merhaba, {user.name}
+            <button onClick={handleLogout}>Çıkış Yap</button>
+          </div>
+        ) : (
+          <Link to={"/login"}>
+            <button>Giriş Yap</button>
+          </Link>
+        )}
+        <Link to={"/cart"}>
+          <FontAwesomeIcon
+            className="icon-nav-cart"
+            icon={faCartShopping}
+          ></FontAwesomeIcon>
+        </Link>
+        <div className="nav-cart-count">0</div>
+      </div>
     </div>
-
-)
-
+  );
 }
 
-export default Navbar
+export default Navbar;

@@ -17,6 +17,7 @@ import UserManagement from "./Components/UserManagement";
 import Layout from "./Layouts/Layout.jsx";
 
 import { AuthProvider } from "./Context/AuthContext"; // AuthProvider'ı import et
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -49,8 +50,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <Admin />,
+        element: <ProtectedRoute />, // ProtectedRoute ile koruma
         children: [
+          { path: "", element: <Admin /> },
           { path: "products", element: <ProductManagement /> },
           { path: "categories", element: <CategoryManagement /> },
           { path: "users", element: <UserManagement /> },
