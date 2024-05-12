@@ -6,6 +6,7 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
+  purchaseProducts,
 } = require("../controllers/productController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -21,3 +22,6 @@ router
   .delete(protect, deleteProduct); // Sadece adminler ürün silebilir
 
 module.exports = router;
+
+// Ürünleri satın alma route'u (Kullanıcı girişi gerektirir)
+router.post('/purchase', protect, purchaseProducts);

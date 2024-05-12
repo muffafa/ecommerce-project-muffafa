@@ -105,3 +105,65 @@ exports.deleteProduct = async (req, res) => {
       .json({ message: "Failed to delete product", error: error.message });
   }
 };
+
+// Ürünleri satın alma fonksiyonu
+exports.purchaseProducts = async (req, res) => {
+  // Kullanıcı giriş yapmamışsa erişimi engelle
+  if (!req.user) {
+    return res.status(401).json({ message: "Kullanıcı girişi gereklidir." });
+  }
+
+  const productsToPurchase = req.body.products; // { products: [{ productId: 'id', quantity: 1 }, ...] }
+
+  try {
+    // Ürün ve miktarlarının stokta olup olmadığını kontrol et
+    const productChecks = await Promise.all(
+      productsToPurchase.map((item) =>
+        Product.findById(item.productId).then((product) => ({
+          productId: item.productId,
+          available: product && product.stock >= item.quantity,
+          quantity: item.quantity,
+          stock: product.stock,
+        }))
+      )
+    );
+
+    // Eğer tüm ürünler stokta varsa satın alma işlemini gerçekleştir
+    if (productChecks.every((item) => item.available)) {
+      const purchaseTransactions = productChecks.map((item) =>
+        Product.findByIdAndUpdate(
+          item.productId,
+          { $inc: { stock: -item.quantity } },
+          { new: true }
+        )
+      );
+
+      await Promise.all(purchaseTransactions);
+
+      res
+        .status(200)
+        .json({
+          message: "Ürünler başarıyla satın alındı",
+          products: productChecks,
+        });
+    } else {
+      // Stokta olmayan ürünler varsa hata mesajı döndür
+      const unavailableProducts = productChecks.filter(
+        (item) => !item.available
+      );
+      res
+        .status(400)
+        .json({
+          message: "Bazı ürünler stokta yeterli miktarda değil",
+          details: unavailableProducts,
+        });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        message: "Ürün satın alma işlemi sırasında bir hata oluştu",
+        error: error.message,
+      });
+  }
+};
