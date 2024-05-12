@@ -1,169 +1,187 @@
-.navbar{
-    width: 100vw;
-    max-width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #FF8D27;
-    box-shadow: 0px 15px 10px -15px rgba(0, 15, 8, 1);
-    border-bottom: solid 1px rgba(0, 15, 8, 0.1);
-    box-sizing: border-box;
+.navbar {
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ff8d27;
+  box-shadow: 0px 15px 10px -15px rgba(0, 15, 8, 1);
+  border-bottom: solid 1px rgba(0, 15, 8, 0.1);
+  box-sizing: border-box;
 }
 
-.taptaze-logo{
-    width: 25%;
+.taptaze-logo {
+  width: 25%;
 }
 
-.taptaze-logo img{
-    width: 100%;
+.taptaze-logo img {
+  width: 100%;
 }
 
-.nav-menu{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    list-style: none;
-    color: #FFF;
-    font-weight: 600;
-    font-family: Roboto;
-    font-size: 10px;
-    width: 45%;
-    padding: 0;
-    margin: 0;
-    gap: 0;
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+  color: #fff;
+  font-weight: 600;
+  font-family: Roboto;
+  font-size: 10px;
+  width: 45%;
+  padding: 0;
+  margin: 0;
+  gap: 0;
 }
 
-.nav-item{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.3s;
+.nav-item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit; /* Ensures the link color is the same as .nav-item */
+  text-decoration: none; /* Removes underline from links */
+  transition: 0.3s;
 }
 
-.nav-item:hover{
-    color: #000F08;
+.nav-item:hover a {
+  color: #000f08;
 }
 
-.nav-item:active{
-    color: #FFEC62;
+.nav-item:active a {
+  color: #ffec62;
 }
 
-.nav-item + .nav-item{
-    margin-left: 16px;
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.nav-login-cart{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 25%;
+.nav-item:hover {
+  color: #000f08;
 }
 
-.nav-login-cart button{
-    outline: none;
-    border: solid 1px rgba(60, 60, 60, 0.05);
-    color: #FFF;
-    background-color: #F16B44;
-    font-family: Roboto;
-    font-weight: 600;
-    transition: 0.3s;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 24px;
-    font-size: 10px;
+.nav-item:active {
+  color: #ffec62;
 }
 
-.nav-login-cart button:hover{
-    background-color: #FFF;
-    color: #F16B44;
+.nav-item + .nav-item {
+  margin-left: 16px;
 }
 
-.icon-nav-cart{
-    color: #000F08;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 10px;
+.nav-login-cart {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 25%;
 }
 
-.icon-nav-cart:hover{
-    color: #FFF;
+.nav-login-cart button {
+  outline: none;
+  border: solid 1px rgba(60, 60, 60, 0.05);
+  color: #fff;
+  background-color: #f16b44;
+  font-family: Roboto;
+  font-weight: 600;
+  transition: 0.3s;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 24px;
+  font-size: 10px;
 }
 
-.icon-nav-cart:active{
-    color: #FFEC62;
+.nav-login-cart button:hover {
+  background-color: #fff;
+  color: #f16b44;
 }
 
-.nav-cart-count{
-    width: 10px;
-    height: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: -10px;
-    margin-top: -15px;
-    border-radius: 11px;
-    font-size: 8px;
-    background-color: #F16B44;
-    color: #FFF;
+.icon-nav-cart {
+  color: #000f08;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 10px;
+}
+
+.icon-nav-cart:hover {
+  color: #fff;
+}
+
+.icon-nav-cart:active {
+  color: #ffec62;
+}
+
+.nav-cart-count {
+  width: 10px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -10px;
+  margin-top: -15px;
+  border-radius: 11px;
+  font-size: 8px;
+  background-color: #f16b44;
+  color: #fff;
 }
 
 /* Desktop Responsive Query */
 
 @media screen and (min-width: 768px) {
+  .navbar {
+    padding: 8px 0;
+    box-shadow: 0px 15px 10px -15px rgba(0, 15, 8, 1);
+  }
 
-    .navbar{
-        padding: 8px 0;
-        box-shadow: 0px 15px 10px -15px rgba(0, 15, 8, 1);
-    }
+  .taptaze-logo {
+    width: 20%;
+  }
 
-    .taptaze-logo{
-        width: 20%;
-    }
+  .taptaze-logo img {
+    width: 60%;
+  }
 
-    .taptaze-logo img{
-        width: 60%;
-    }
+  .nav-menu {
+    gap: 64px;
+    font-size: 18px;
+    width: 40%;
+    justify-content: center;
+  }
 
-    .nav-menu{
-        gap: 64px;
-        font-size: 18px;
-        width: 40%;
-        justify-content: center;
-    }
+  .nav-item {
+    gap: 8px;
+  }
 
-    .nav-item{
-        gap: 8px;
-    }
+  .nav-login-cart {
+    gap: 48px;
+    width: 25%;
+    justify-content: center;
+  }
 
-    .nav-login-cart{
-        gap: 48px;
-        width: 25%;
-        justify-content: center;
-    }
+  .nav-login-cart button {
+    padding: 12px 28px;
+    border-radius: 80px;
+    font-size: 18px;
+  }
 
-    .nav-login-cart button{
-        padding: 12px 28px;
-        border-radius: 80px;
-        font-size: 18px;
-    }
+  .icon-nav-cart {
+    font-size: 20px;
+  }
 
-    .icon-nav-cart{
-        font-size: 20px;
-    }
-
-    .nav-cart-count{
-        width: 22px;
-        height: 22px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: -35px;
-        margin-left: -55px;
-        border-radius: 11px;
-        font-size: 14px;
-        background-color: #F16B44;
-        color: #FFF;
-    }
+  .nav-cart-count {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -35px;
+    margin-left: -55px;
+    border-radius: 11px;
+    font-size: 14px;
+    background-color: #f16b44;
+    color: #fff;
+  }
 }
