@@ -18,14 +18,30 @@ exports.getUsers = async (req, res) => {
 
 // ID'ye göre kullanıcı getir
 exports.getUserById = async (req, res) => {
+  const requestedUserId = req.params.id;
+  const requestingUserId = req.user._id;
+  const requestingUserIsAdmin = req.user.isAdmin;
+
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(requestedUserId);
     if (!user) {
       return res.status(404).json({ message: "Kullanıcı bulunamadı." });
     }
-    res.json(user);
+
+    // Kullanıcı kendi bilgilerini görüntülüyorsa veya kullanıcı admin ise
+    if (
+      requestingUserId.toString() === requestedUserId ||
+      requestingUserIsAdmin
+    ) {
+      res.json(user);
+    } else {
+      res.status(403).json({ message: "Bu bilgilere erişim yetkiniz yok." });
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: "Kullanıcı bilgileri getirilirken bir hata oluştu",
+      error: error.message,
+    });
   }
 };
 
@@ -52,12 +68,10 @@ exports.registerUser = async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "Kullanıcı başarıyla kaydedildi." });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Kullanıcı kaydedilirken bir hata oluştu.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Kullanıcı kaydedilirken bir hata oluştu.",
+      error: error.message,
+    });
   }
 };
 
@@ -91,19 +105,40 @@ exports.loginUser = async (req, res) => {
 };
 
 // Kullanıcıyı güncelle
+// Kullanıcıyı güncelle
 exports.updateUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const { name, email, password, isAdmin } = req.body;
+    const updateData = {};
+
+    // Check if name is provided and add to update data object
+    if (name) updateData.name = name;
+    // Check if email is provided and add to update data object
+    if (email) updateData.email = email;
+    // Check if isAdmin is provided and add to update data object
+    if (isAdmin !== undefined) updateData.isAdmin = isAdmin;
+
+    // Only hash the password if it is provided
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      updateData.password = await bcrypt.hash(password, salt);
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      { name, email, password: hashedPassword },
+      updateData,
       { new: true }
     );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
     res.json(updatedUser);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res
+      .status(400)
+      .json({ message: "Error updating user", error: error.message });
   }
 };
 
@@ -119,5 +154,113 @@ exports.deleteUser = async (req, res) => {
     res.json({ message: "Kullanıcı silindi." });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.addToCart = async (req, res) => {
+  const userId = req.user._id; // Oturum açmış kullanıcının ID'si
+  const { productId, quantity } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
+    }
+
+    const cartItemIndex = user.cart.findIndex(
+      (item) => item.product.toString() === productId
+    );
+    if (cartItemIndex > -1) {
+      // Ürün zaten sepette var, miktarı güncelle
+      user.cart[cartItemIndex].quantity += quantity;
+    } else {
+      // Ürün sepette yok, yeni ürün ekle
+      user.cart.push({ product: productId, quantity });
+    }
+
+    await user.save();
+    res.status(200).json(user.cart);
+  } catch (error) {
+    res.status(500).json({
+      message: "Sepete ürün eklenirken bir hata oluştu",
+      error: error.message,
+    });
+  }
+};
+
+exports.removeFromCart = async (req, res) => {
+  const userId = req.user._id;
+  const { productId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
+    }
+
+    // Ürünü sepette bul ve çıkar
+    user.cart = user.cart.filter(
+      (item) => item.product.toString() !== productId
+    );
+
+    await user.save();
+    res.status(200).json(user.cart);
+  } catch (error) {
+    res.status(500).json({
+      message: "Sepetten ürün çıkarılırken bir hata oluştu",
+      error: error.message,
+    });
+  }
+};
+
+exports.viewCart = async (req, res) => {
+  const userId = req.user._id; // Oturum açan kullanıcının ID'si
+
+  try {
+    const user = await User.findById(userId).populate("cart.product");
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
+    }
+
+    const cartItems = user.cart.map((item) => ({
+      product: item.product,
+      quantity: item.quantity,
+      isAvailable: item.quantity <= item.product.stock,
+    }));
+
+    res.json(cartItems);
+  } catch (error) {
+    res.status(500).json({
+      message: "Sepet görüntülenirken bir hata oluştu",
+      error: error.message,
+    });
+  }
+};
+
+exports.purchaseItems = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate("cart.product");
+    const itemsToPurchase = user.cart.filter(
+      (item) => item.product.stock >= item.quantity
+    );
+
+    // Stokları güncelle ve satın alma işlemlerini kaydet
+    await Promise.all(
+      itemsToPurchase.map((item) => {
+        item.product.stock -= item.quantity;
+        return item.product.save();
+      })
+    );
+
+    // Satın alınan ürünleri sepetten çıkar
+    user.cart = user.cart.filter((item) => !itemsToPurchase.includes(item));
+    await user.save();
+
+    res.json({ message: "Satın alma işlemi başarılı", cart: user.cart });
+  } catch (error) {
+    res.status(500).json({
+      message: "Satın alma işlemi sırasında bir hata oluştu",
+      error: error.message,
+    });
   }
 };

@@ -7,6 +7,10 @@ const {
   updateUser,
   deleteUser,
   loginUser,
+  viewCart,
+  purchaseItems,
+  addToCart,
+  removeFromCart,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -25,5 +29,17 @@ router
   .get(protect, getUserById) // Sadece adminler belirli bir kullanıcıyı görebilir
   .put(protect, updateUser) // Sadece adminler kullanıcı güncelleyebilir
   .delete(protect, deleteUser); // Sadece adminler kullanıcı silebilir
+
+// Sepeti görüntüle
+router.get("/cart", protect, viewCart);
+
+// Ürünleri satın al
+router.post("/cart/purchase", protect, purchaseItems);
+
+// Sepete ürün ekle
+router.post("/cart", protect, addToCart);
+
+// Sepetten ürün çıkar
+router.delete("/cart/:productId", protect, removeFromCart);
 
 module.exports = router;
