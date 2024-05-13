@@ -23,9 +23,15 @@ function Navbar() {
         </Link>
       </div>
       <ul className="nav-menu">
-        <Link to={"/market"}>
-          <li className="nav-item">Market</li>
-        </Link>
+        <li className="nav-item">
+          <Link to={"/market"}>Market</Link>
+        </li>
+
+        {user && user.isAdmin && (
+          <li className="nav-item">
+            <Link to={"/admin"}>Admin Panel</Link>
+          </li>
+        )}
       </ul>
       <div className="nav-login-cart">
         {user ? (

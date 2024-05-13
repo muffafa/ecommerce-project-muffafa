@@ -1,11 +1,10 @@
-import AdminNavBar from "../Components/AdminNavBar";
 import { Outlet } from "react-router-dom";
 
 const Admin = () => {
   return (
     <div>
-      <AdminNavBar />
       <div className="admin-content">
+        Hoşgeldin!
         <Outlet />
       </div>
     </div>
