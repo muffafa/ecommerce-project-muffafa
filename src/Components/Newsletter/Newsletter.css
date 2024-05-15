@@ -8,7 +8,7 @@
     background-image: url("/src/Components/Assets/newsletter-bg.png");
     background-attachment: fixed;
     background-size: contain;
-    margin-top: 80px;
+    margin-top: 640px;
     padding: 16px;
     box-sizing: border-box;
 }
@@ -69,7 +69,7 @@
         max-width: 100%;
         display: flex;
         gap: 32px;
-        margin-top: 200px;
+        margin-top: 640px;
         padding: 80px;
     }
 

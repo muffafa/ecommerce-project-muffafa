@@ -4,6 +4,7 @@
     padding: 8px;
     border-radius: 16px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .product img{
@@ -37,6 +38,31 @@
     font-size: 12px;
     font-weight: 500;
     text-decoration: line-through;
+}
+
+.product-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.purchase-button{
+    padding: 8px 16px;
+    margin: 16px 0px 8px 0px;
+    background-color: #FF8D27;
+    color: #FFF;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.purchase-button:hover{
+    background-color: #FFEC62;
+    color: #000F08;
 }
 
 /* Desktop Responsive Query */
@@ -75,6 +101,13 @@
     }
     
     .product-price-old{
+        font-size: 16px;
+    }
+    
+    .purchase-button{
+        padding: 8px 24px;
+        margin: 32px 0px 8px 0px;
+        border-radius: 8px;
         font-size: 16px;
     }
 }
