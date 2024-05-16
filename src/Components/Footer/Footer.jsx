@@ -1,6 +1,8 @@
 import "./Footer.css";
 import logo from "../Assets/logo.png";
 import { useLocation } from "react-router-dom";
+// import { Link } from "react-router-dom";
+
 function Footer() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
@@ -13,12 +15,25 @@ function Footer() {
       {!isAdminRoute && (
         <>
           <h1>Hızlı Menü</h1>
-          <ul className="footer-links">
-            <li className="footer-link">Anasayfa</li>
-            <li className="footer-link">Ürünler</li>
-            <li className="footer-link">Günlük İhtiyaç</li>
-            <li className="footer-link">Fırsat</li>
-            <li className="footer-link">İletişim</li>
+          <ul className="nav-menu">
+            <li className="nav-item">
+              <a href="/">Anasayfa</a>
+              {/* <Link to={"/"}>Anasayfa</Link> */}
+            </li>
+
+            <li className="nav-item">
+              {/* <Link to={"/market"}>Market</Link> */}
+              <a href="./market">Market</a>
+            </li>
+            <li className="nav-item">
+              <a
+                href="https://bmb.cu.edu.tr/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                İletişim
+              </a>
+            </li>
           </ul>
         </>
       )}

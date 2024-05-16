@@ -1,4 +1,6 @@
 import "./PaymentSuccess.css"
+import { Link } from "react-router-dom";
+
 
 function PaymentSuccess(){
 
@@ -12,7 +14,9 @@ function PaymentSuccess(){
                     gerçekleşti. Ödemeniz alındı. Bir sonraki <span>TapTaze </span>
                      alışverişinizde görüşmek üzere.
                 </p>
-                <button className="back-to-shop">Alışverişe Devam! 🛒</button>
+                <Link to={"/market"}> 
+                    <button className="back-to-shop">Alışverişe Devam! 🛒</button>
+                </Link>
             </div>
         </div>
 
