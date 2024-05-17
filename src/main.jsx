@@ -18,8 +18,8 @@ import Layout from "./Layouts/Layout.jsx";
 
 import { AuthProvider } from "./Context/AuthContext"; // AuthProvider'ı import et
 import ProtectedRoute from "./Components/ProtectedRoute";
-import { element } from "prop-types";
-import PaymentSuccess from "./Components/PaymentSuccess/PaymentSuccess.jsx";
+// import { element } from "prop-types";
+import Payment from "./Pages/Payment.jsx";
 
 const router = createBrowserRouter([
   {
@@ -51,8 +51,8 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: "/payment-success",
-        element: <PaymentSuccess />, 
+        path: "/payment",
+        element: <Payment />, 
       },
       {
         path: "/admin",
