@@ -1,51 +1,78 @@
+// src/Pages/Register.jsx
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import axios from "../api/axios"; // Import Axios instance
+import "./CSS/LoginSignup.css"; // Import the CSS file
 
 function Register() {
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const userData = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-    };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      try {
+        // Send registration request to the API using Axios
+        const response = await axios.post("/users", {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
 
-    const response = await fetch("http://localhost:3000/api/users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
-    const data = await response.json();
+        if (response.status === 201) {
+          alert("Registration successful!");
+          navigate("/login"); // Redirect to login page on successful registration
+        }
+      } catch (error) {
+        // Show error message based on HTTP status code
+        alert(
+          "Registration failed: " +
+            (error.response?.data?.message || error.message)
+        );
+      }
+    },
+  });
 
-    if (response.ok) {
-      alert("Registration successful!");
-      navigate("/login"); // Kayıt başarılıysa giriş sayfasına yönlendir
-    } else {
-      alert("Registration failed: " + data.message);
-    }
+  const handleLoginRedirect = () => {
+    navigate("/login"); // Redirect user to login page
   };
 
   return (
     <div className="loginsignup">
-      <form className="loginsignup-container" onSubmit={handleSubmit}>
+      <form className="loginsignup-container" onSubmit={formik.handleSubmit}>
         <h1>Üye Ol</h1>
         <div className="signin-form">
-          <input name="name" type="text" placeholder="İsminiz" required />
+          <input
+            name="name"
+            type="text"
+            placeholder="İsminiz"
+            required
+            onChange={formik.handleChange}
+            value={formik.values.name}
+          />
           <input
             name="email"
             type="email"
             placeholder="E-Posta Adresiniz"
             required
+            onChange={formik.handleChange}
+            value={formik.values.email}
           />
-          <input name="password" type="password" placeholder="Şifre" required />
+          <input
+            name="password"
+            type="password"
+            placeholder="Şifre"
+            required
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
           <button type="submit">Üye Ol</button>
         </div>
         <p className="login-direct">
-          Zaten üye misin? <a href="/login">Giriş Yap.</a>
+          Zaten üye misin? <span onClick={handleLoginRedirect}>Giriş Yap.</span>
         </p>
         <div className="loginsignup-privacy-text">
           <input type="checkbox" name="terms" id="terms" required />
