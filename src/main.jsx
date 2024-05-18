@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/product",
+        path: "/product/:id",
         element: <SingleProduct />,
       },
       {
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/payment",
-        element: <Payment />, 
+        element: <Payment />,
       },
       {
         path: "/admin",

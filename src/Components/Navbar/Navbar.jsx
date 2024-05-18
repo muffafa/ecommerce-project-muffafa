@@ -5,9 +5,12 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { MarketContext } from "../../Context/MarketContext";
 
 function Navbar() {
   const { user, logout } = useAuth();
+  const { cart } = useContext(MarketContext); // Get the cart context
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -50,7 +53,7 @@ function Navbar() {
             icon={faCartShopping}
           ></FontAwesomeIcon>
         </Link>
-        <div className="nav-cart-count">0</div>
+        <div className="nav-cart-count">{cart.length}</div>
       </div>
     </div>
   );
