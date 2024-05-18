@@ -16,7 +16,7 @@ function Hero() {
           <p>Fırsatları</p>
           <p className="hero-left-subtitle">Hemen Yakala!</p>
         </div>
-        <a href="./market" style={ {textDecoration: "none"}}>
+        <a href="./market" style={{ textDecoration: "none" }}>
           <div className="firsatlar-btn-container">
             <div>Tüm Ürünler</div>
             <FontAwesomeIcon
