@@ -2,16 +2,19 @@
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { useFormik } from "formik";
+import "./UserManagement.css"; // Import the CSS file
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
-  const [editingId, setEditingId] = useState(null); // Düzenlenen kullanıcı ID'si
+  const [editingId, setEditingId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get("/users", {
@@ -21,10 +24,10 @@ const UserManagement = () => {
       });
       setUsers(response.data);
     } catch (error) {
-      console.error(
-        "Kullanıcılar yüklenirken bir hata oluştu:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Kullanıcılar yüklenirken bir hata oluştu:", error);
+      alert("Kullanıcılar yüklenirken bir hata oluştu.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,20 +57,20 @@ const UserManagement = () => {
             },
           });
           setEditingId(null);
+          alert("Kullanıcı başarıyla güncellendi.");
         } else {
           await axios.post("/users", data, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
+          alert("Kullanıcı başarıyla eklendi.");
         }
         fetchUsers(); // Kullanıcı listesini yeniden yükler
         resetForm(); // Formu sıfırlar
       } catch (error) {
-        console.error(
-          "Kullanıcı işlemi sırasında bir hata oluştu:",
-          error.response?.data?.message || error.message
-        );
+        console.error("Kullanıcı işlemi sırasında bir hata oluştu:", error);
+        alert("Kullanıcı işlemi sırasında bir hata oluştu.");
       }
     },
   });
@@ -81,11 +84,10 @@ const UserManagement = () => {
         },
       });
       fetchUsers(); // Kullanıcı listesini yeniden yükler
+      alert("Kullanıcı başarıyla silindi.");
     } catch (error) {
-      console.error(
-        "Kullanıcı silinirken bir hata oluştu:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Kullanıcı silinirken bir hata oluştu:", error);
+      alert("Kullanıcı silinirken bir hata oluştu.");
     }
   };
 
@@ -99,31 +101,45 @@ const UserManagement = () => {
     });
   };
 
+  const handleCancelEdit = () => {
+    formik.resetForm();
+    setEditingId(null);
+  };
+
   return (
-    <div>
+    <div className="user-management">
       <h1>Kullanıcı Yönetimi</h1>
       <form onSubmit={formik.handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-          placeholder="E-posta"
-        />
-        <input
-          type="text"
-          name="name"
-          onChange={formik.handleChange}
-          value={formik.values.name}
-          placeholder="Adı"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-          placeholder="Şifre"
-        />
+        <label>
+          E-posta:
+          <input
+            type="email"
+            name="email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            placeholder="E-posta"
+          />
+        </label>
+        <label>
+          Adı:
+          <input
+            type="text"
+            name="name"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+            placeholder="Adı"
+          />
+        </label>
+        <label>
+          Şifre:
+          <input
+            type="password"
+            name="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            placeholder="Şifre"
+          />
+        </label>
         <label>
           Admin:
           <input
@@ -136,16 +152,30 @@ const UserManagement = () => {
         <button type="submit">
           {editingId ? "Kullanıcı Güncelle" : "Kullanıcı Ekle"}
         </button>
+        {editingId && (
+          <button type="button" onClick={handleCancelEdit}>
+            İptal
+          </button>
+        )}
       </form>
-      <ul>
-        {users.map((user) => (
-          <li key={user._id}>
-            {user.email} - {user.name} - {user.isAdmin ? "Admin" : "Kullanıcı"}
-            <button onClick={() => startEdit(user)}>Düzenle</button>
-            <button onClick={() => handleDeleteUser(user._id)}>Sil</button>
-          </li>
-        ))}
-      </ul>
+      <br />
+      <h1>Kullanıcılar</h1>
+      {loading ? (
+        <p>Yükleniyor...</p>
+      ) : (
+        <ul>
+          {users.map((user) => (
+            <li key={user._id}>
+              {user.email} - {user.name} -{" "}
+              {user.isAdmin ? "Admin" : "Kullanıcı"}
+              <div>
+                <button onClick={() => startEdit(user)}>Düzenle</button>
+                <button onClick={() => handleDeleteUser(user._id)}>Sil</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
