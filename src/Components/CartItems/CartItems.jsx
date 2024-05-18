@@ -5,10 +5,12 @@ import { useContext, useState } from "react";
 import { MarketContext } from "../../Context/MarketContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext"; // Import the useAuth hook
 
 function CartItems() {
   const { cart, setCart, addToCart, removeFromCart } =
     useContext(MarketContext);
+  const { user } = useAuth(); // Get the user from the useAuth hook
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [error, setError] = useState("");
@@ -33,6 +35,12 @@ function CartItems() {
   };
 
   const handlePurchase = async () => {
+    if (!user) {
+      alert("Ürünleri satın almak için önce giriş yapmalısınız.");
+      navigate("/login");
+      return;
+    }
+
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
