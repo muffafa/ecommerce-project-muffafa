@@ -10,7 +10,9 @@ const MarketContextProvider = (props) => {
   const addToCart = (product, quantity) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item._id === product._id);
-      const totalQuantity = existingProduct ? existingProduct.quantity + quantity : quantity;
+      const totalQuantity = existingProduct
+        ? existingProduct.quantity + quantity
+        : quantity;
 
       if (totalQuantity > product.stock) {
         return prevCart;
@@ -18,9 +20,7 @@ const MarketContextProvider = (props) => {
 
       if (existingProduct) {
         return prevCart.map((item) =>
-          item._id === product._id
-            ? { ...item, quantity: totalQuantity }
-            : item
+          item._id === product._id ? { ...item, quantity: totalQuantity } : item
         );
       } else {
         return [...prevCart, { ...product, quantity }];
@@ -29,12 +29,16 @@ const MarketContextProvider = (props) => {
   };
 
   const removeFromCart = (productId) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item._id !== productId)
-    );
+    setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
   };
 
-  const contextValue = { tum_urunler, cart, addToCart, removeFromCart };
+  const contextValue = {
+    tum_urunler,
+    cart,
+    setCart,
+    addToCart,
+    removeFromCart,
+  };
 
   return (
     <MarketContext.Provider value={contextValue}>

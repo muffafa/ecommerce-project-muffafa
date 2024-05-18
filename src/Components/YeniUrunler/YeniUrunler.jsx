@@ -73,7 +73,7 @@ const YeniUrunler = () => {
                 )}
               </div>
               <div className="product-button-container">
-                <button className="purchase-button">Satın Al</button>
+                <button className="purchase-button">Göz At</button>
               </div>
             </div>
           </Link>

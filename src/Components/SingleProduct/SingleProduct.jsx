@@ -14,7 +14,7 @@ const SingleProduct = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const [error, setError] = useState(null);
-  const { addToCart, cart } = useContext(MarketContext);
+  const { addToCart } = useContext(MarketContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -25,6 +25,7 @@ const SingleProduct = () => {
         });
         setProduct(response.data);
       } catch (error) {
+        setError("Ürün detayları çekerken hata oluştu.");
         console.error("Ürün detayları çekerken hata oluştu:", error);
       }
     };
@@ -47,22 +48,15 @@ const SingleProduct = () => {
   };
 
   const handleAddToCart = () => {
-    const existingProduct = cart.find((item) => item._id === product._id);
-    const totalQuantity = existingProduct
-      ? existingProduct.quantity + quantity
-      : quantity;
-
-    if (totalQuantity > product.stock) {
-      setError(
-        `Stok ve sepete göre siz sadece ${
-          product.stock - (existingProduct ? existingProduct.quantity : 0)
-        } kadar ekleyebilirsiniz.`
-      );
-    } else {
+    if (quantity > 0) {
       addToCart(product, quantity);
       navigate("/cart");
     }
   };
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   if (!product) {
     return <div>Loading...</div>;
@@ -89,9 +83,6 @@ const SingleProduct = () => {
             </div>
           </div>
           <div className="single-product-stock">Stok: {product.stock}</div>
-          <div className="single-product-description">
-            {product.description}
-          </div>
           <div className="add-to-cart-counter">
             <FontAwesomeIcon
               icon={faMinus}
@@ -105,13 +96,16 @@ const SingleProduct = () => {
               onClick={incrementQuantity}
             ></FontAwesomeIcon>
           </div>
-          {error && <div className="error-message">{error}</div>}
-          <button className="add-to-cart" onClick={handleAddToCart}>
+          <button
+            className="add-to-cart"
+            onClick={handleAddToCart}
+            disabled={quantity === 0}
+          >
             Sepete Ekle
           </button>
         </div>
       </div>
-      <DescriptionBox />
+      <DescriptionBox description={product.description} />
       <RelatedProducts />
     </>
   );
