@@ -1,4 +1,3 @@
-// src/Components/UserManagement.jsx
 import { useEffect, useState } from "react";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import { useFormik } from "formik";
@@ -35,14 +34,15 @@ const UserManagement = () => {
       name: "",
       password: "",
       isAdmin: false,
+      isSubscribedToNewsletter: false,
     },
     onSubmit: async (values, { resetForm }) => {
       const data = {
         email: values.email,
         name: values.name,
         isAdmin: values.isAdmin,
+        isSubscribedToNewsletter: values.isSubscribedToNewsletter,
       };
-      // Eğer bir şifre girilmişse, bu veriyi de ekleyin
       if (values.password) {
         data.password = values.password;
       }
@@ -92,6 +92,7 @@ const UserManagement = () => {
       name: user.name,
       password: "",
       isAdmin: user.isAdmin,
+      isSubscribedToNewsletter: user.isSubscribedToNewsletter,
     });
   };
 
@@ -142,6 +143,15 @@ const UserManagement = () => {
                 checked={formik.values.isAdmin}
               />
             </label>
+            <label>
+              Bülten Aboneliği:
+              <input
+                type="checkbox"
+                name="isSubscribedToNewsletter"
+                onChange={formik.handleChange}
+                checked={formik.values.isSubscribedToNewsletter}
+              />
+            </label>
             <button type="submit">
               {editingId ? "Kullanıcı Güncelle" : "Kullanıcı Ekle"}
             </button>
@@ -157,7 +167,8 @@ const UserManagement = () => {
             {users.map((user) => (
               <li key={user._id}>
                 {user.email} - {user.name} -{" "}
-                {user.isAdmin ? "Admin" : "Kullanıcı"}
+                {user.isAdmin ? "Admin" : "Kullanıcı"} -{" "}
+                {user.isSubscribedToNewsletter ? "Abone" : "Abone Değil"}
                 <div>
                   <button onClick={() => startEdit(user)}>Düzenle</button>
                   <button onClick={() => handleDeleteUser(user._id)}>
