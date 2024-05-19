@@ -50,9 +50,8 @@
 
 .nav-item:active a {
   color: #ffec62;
-}a
-
-.nav-item {
+}
+a .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;

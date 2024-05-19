@@ -1,8 +1,8 @@
 import Hero from "./Components/Hero";
 import "./App.css";
-import Populer from "./Components/Populer";
+// import Populer from "./Components/Populer";
 // import Teklifler from "./Components/Teklifler";
-import Newsletter from "./Components/Newsletter";
+// import Newsletter from "./Components/Newsletter";
 // import YeniUrunler from "./Components/YeniUrunler";
 // import SingleProduct from "./Components/SingleProduct";
 
@@ -10,10 +10,10 @@ function App() {
   return (
     <>
       <Hero></Hero>
-      <Populer></Populer>
+      {/* <Populer></Populer> */}
       {/* <Teklifler></Teklifler> */}
       {/* <YeniUrunler></YeniUrunler> */}
-      <Newsletter></Newsletter>
+      {/* <Newsletter></Newsletter> */}
       {/* <SingleProduct></SingleProduct> */}
     </>
   );
