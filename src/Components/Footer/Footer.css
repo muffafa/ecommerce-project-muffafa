@@ -1,0 +1,207 @@
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background-color: #FF8D27;
+    padding-top: 32px;
+    box-shadow: 0px -15px 10px -15px rgba(0, 15, 8, 1);
+}
+
+.footer-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.footer-logo img{
+    width: 100%;
+}
+
+.footer h1{
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.footer-links{
+    display: flex;
+    list-style: none;
+    gap: 12px;
+    color: #000F08;
+    font-size: 10px;
+}
+
+.nav-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: inherit; /* Ensures the link color is the same as .nav-item */
+    text-decoration: none; /* Removes underline from links */
+    transition: 0.3s;
+  }
+  
+  .nav-item:hover a {
+    color: #000f08;
+  }
+  
+  .nav-item:active a {
+    color: #ffec62;
+  }a
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .nav-item:hover {
+    color: #000f08;
+  }
+  
+  .nav-item:active {
+    color: #ffec62;
+  }
+  
+  .nav-item + .nav-item {
+    margin-left: 16px;
+  }
+
+.footer-copyright{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    color: #000F08;
+    font-size: 12px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    color: #fff;
+    font-weight: 600;
+    font-family: Roboto;
+    font-size: 10px;
+    width: 45%;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+
+.footer-copyright hr{
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    height: 1px;
+    background-color: rgba(0, 15, 8, 0.1);
+    margin-bottom: 8px;
+}
+
+.authors{
+    color: #FFF;
+}
+
+/* Desktop Responsive Query */
+
+@media screen and (min-width: 768px) {
+
+    .footer{
+        gap: 48px;
+        padding-top: 48px;
+    }
+    
+    .footer-logo{
+        width: 15%;
+    }
+    
+    .footer h1{
+        font-size: 32px;
+    }
+    
+    .footer-links{
+        gap: 48px;
+        font-size: 24px;
+    }
+
+    .footer-copyright{
+        gap: 8px;
+        margin-bottom: 32px;
+        font-size: 16px;
+    }
+    
+    .footer-copyright hr{
+        border-radius: 8px;
+        height: 1px;
+        margin-bottom: 16px;
+    }
+}
+
+
+@media screen and (min-width: 768px) {
+    .navbar {
+      padding: 8px 0;
+      box-shadow: 0px 15px 10px -15px rgba(0, 15, 8, 1);
+    }
+  
+    .taptaze-logo {
+      width: 20%;
+    }
+  
+    .taptaze-logo img {
+      width: 60%;
+    }
+  
+    .nav-menu {
+      gap: 64px;
+      font-size: 18px;
+      width: 40%;
+      justify-content: center;
+    }
+  
+    .nav-item {
+      gap: 8px;
+    }
+  
+    .nav-login-cart {
+      gap: 48px;
+      width: 25%;
+      justify-content: center;
+    }
+  
+    .nav-login-cart button {
+      padding: 12px 28px;
+      border-radius: 80px;
+      font-size: 18px;
+    }
+  
+    .icon-nav-cart {
+      font-size: 20px;
+    }
+  
+    .nav-cart-count {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -35px;
+      margin-left: -55px;
+      border-radius: 11px;
+      font-size: 14px;
+      background-color: #f16b44;
+      color: #fff;
+    }
+  }
+  
