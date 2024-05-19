@@ -57,7 +57,7 @@ exports.createProduct = async (req, res) => {
       category,
       currentPrice,
       oldPrice,
-      imageUrl, // Ensure the field name matches your Mongoose model
+      imageUrl,
     });
     await newProduct.save();
     res.status(201).json(newProduct);

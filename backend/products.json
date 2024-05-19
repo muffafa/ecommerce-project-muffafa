@@ -1,0 +1,109 @@
+[
+  {
+    "name": "Domates",
+    "description": "Mis kokulu domates!",
+    "stock": 12,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 7,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/domates.png"
+  },
+  {
+    "name": "Yeşil Biber",
+    "description": "Sizden tatlı olmasın şeker gibi biber",
+    "stock": 24,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 12,
+    "oldPrice": 20,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/yesil-biber.png"
+  },
+  {
+    "name": "Salatalık",
+    "description": "Cacık için 1. kalite hıyar",
+    "stock": 150,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 10,
+    "oldPrice": 12.95,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/salatalik.png"
+  },
+  {
+    "name": "Soğan",
+    "description": "Aman dikkat gözler tazelikten yanmasın",
+    "stock": 150,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 12,
+    "oldPrice": 14.9,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/sogan.png"
+  },
+  {
+    "name": "Marul",
+    "description": "Kıvır kıvır",
+    "stock": 150,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 3.5,
+    "oldPrice": 5.75,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/marul.png"
+  },
+  {
+    "name": "Kırmızı Biber",
+    "description": "ACI!",
+    "stock": 150,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 80,
+    "oldPrice": 84.9,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/kirmizi-biber.png"
+  },
+  {
+    "name": "Patates",
+    "description": "Nar gibi kızartmalık patato!",
+    "stock": 150,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 23.5,
+    "oldPrice": 28.9,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/patates.png"
+  },
+  {
+    "name": "Elma",
+    "description": "Yarım elma gönül alma",
+    "stock": 150,
+    "category": "663d70fe38a2dd0ac53d2209",
+    "currentPrice": 17.4,
+    "oldPrice": 19.9,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/elma.png"
+  },
+  {
+    "name": "Süt",
+    "description": "Sütten daha beyaz",
+    "stock": 150,
+    "category": "663fadc4a9a4d52a3fc2c71e",
+    "currentPrice": 30,
+    "oldPrice": 45,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/sut.png"
+  },
+  {
+    "name": "Su",
+    "description": "%70'niz :)",
+    "stock": 150,
+    "category": "66480dc26965bbfae71a6e22",
+    "currentPrice": 4.35,
+    "oldPrice": 6.75,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/su.png"
+  },
+  {
+    "name": "Bal",
+    "description": "Ayıların uğruna meydan savaşı verdiği o harika lezzet...",
+    "stock": 150,
+    "category": "66480dcc6965bbfae71a6e26",
+    "currentPrice": 192.4,
+    "oldPrice": 200.75,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/bal.png"
+  },
+  {
+    "name": "Yumurta",
+    "description": "Sepet sepet yumurta sakın beni unutma unutursan küserim mektubumu keserim",
+    "stock": 150,
+    "category": "66480dcc6965bbfae71a6e26",
+    "currentPrice": 135,
+    "oldPrice": 150,
+    "imageUrl": "http://localhost:5173/src/Components/Assets/product-images/yumurta.png"
+  }
+]
