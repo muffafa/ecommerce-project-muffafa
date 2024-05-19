@@ -9,6 +9,7 @@ import SingleProduct from "./Components/SingleProduct";
 import Market from "./Pages/Market.jsx";
 import Cart from "./Pages/Cart";
 import Admin from "./Pages/Admin.jsx";
+import NotFound from "./Pages/NotFound"; // NotFound bileşenini ekleyin
 
 import ProductManagement from "./Components/ProductManagement";
 import CategoryManagement from "./Components/CategoryManagement";
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
           { path: "categories", element: <CategoryManagement /> },
           { path: "users", element: <UserManagement /> },
         ],
+      },
+      {
+        path: "*", // Bilinmeyen URL'ler için
+        element: <NotFound />, // NotFound bileşenini ekleyin
       },
     ],
   },
