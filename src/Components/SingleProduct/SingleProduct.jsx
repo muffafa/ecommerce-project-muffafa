@@ -20,6 +20,7 @@ const SingleProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        console.log(`Fetching product with ID: ${id}`);
         const response = await axios.get(`/products/${id}`);
         setProduct(response.data);
       } catch (error) {
@@ -104,7 +105,12 @@ const SingleProduct = () => {
         </div>
       </div>
       <DescriptionBox description={product.description} />
-      <RelatedProducts />
+      {product.category && (
+        <RelatedProducts
+          categoryId={product.category._id}
+          currentProductId={product._id}
+        />
+      )}
     </>
   );
 };
