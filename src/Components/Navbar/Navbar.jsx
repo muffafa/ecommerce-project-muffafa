@@ -38,9 +38,10 @@ function Navbar() {
       </ul>
       <div className="nav-login-cart">
         {user ? (
-          <div>
-            <span style={{ marginRight: "5px", color: "#dddddd" }}>
-              Merhaba, {user.name}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span style={{ marginRight: "20px", color: "#dddddd" }}>
+              Merhaba,
+              <div>{user.name}</div>
             </span>
             <button onClick={handleLogout}>Çıkış Yap</button>
           </div>
