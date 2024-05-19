@@ -2,12 +2,13 @@
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import axios from "../api/axios"; // axios instance'ı import edilir
+import useCustomAxios from "../hooks/useCustomAxios"; // useCustomAxios hook'u import edilir
 import "./CSS/LoginSignup.css";
 
 function LoginSignup() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const axios = useCustomAxios();
 
   const formik = useFormik({
     initialValues: {
@@ -16,7 +17,7 @@ function LoginSignup() {
     },
     onSubmit: async (values) => {
       try {
-        // API'ye login isteği gönderilir (axios kullanılarak)
+        // API'ye login isteği gönderilir (useCustomAxios kullanılarak)
         const response = await axios.post("/users/login", {
           email: values.email,
           password: values.password,
@@ -34,7 +35,7 @@ function LoginSignup() {
       } catch (error) {
         // HTTP durum koduna göre hata mesajı göster
         alert(
-          "Login failed: " + error.response?.data?.message || error.message
+          "Login failed: " + (error.response?.data?.message || error.message)
         );
       }
     },

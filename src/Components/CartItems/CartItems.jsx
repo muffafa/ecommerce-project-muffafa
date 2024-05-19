@@ -3,18 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { MarketContext } from "../../Context/MarketContext";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext"; // Import the useAuth hook
+import { useAuth } from "../../Context/AuthContext";
+import useCustomAxios from "../../hooks/useCustomAxios"; // Import the custom axios hook
 
 function CartItems() {
   const { cart, setCart, addToCart, removeFromCart } =
     useContext(MarketContext);
-  const { user } = useAuth(); // Get the user from the useAuth hook
+  const { user } = useAuth();
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const axios = useCustomAxios();
 
   const handleApplyPromoCode = () => {
     if (promoCode === "TapTaze10") {
@@ -42,19 +43,12 @@ function CartItems() {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://localhost:3000/api/products/purchase",
-        {
-          products: cart.map((item) => ({
-            productId: item._id,
-            quantity: item.quantity,
-          })),
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.post("/products/purchase", {
+        products: cart.map((item) => ({
+          productId: item._id,
+          quantity: item.quantity,
+        })),
+      });
 
       if (response.status === 200) {
         setCart([]);

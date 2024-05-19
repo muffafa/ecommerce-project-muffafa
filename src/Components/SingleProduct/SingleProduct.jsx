@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
+import useCustomAxios from "../../hooks/useCustomAxios";
 import DescriptionBox from "../DescriptionBox/DescriptionBox";
 import RelatedProducts from "../RelatedProducts/RelatedProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +11,7 @@ import { MarketContext } from "../../Context/MarketContext";
 const SingleProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const axios = useCustomAxios();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const [error, setError] = useState(null);
@@ -18,11 +19,8 @@ const SingleProduct = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const token = localStorage.getItem("token");
       try {
-        const response = await axios.get(`/products/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(`/products/${id}`);
         setProduct(response.data);
       } catch (error) {
         setError("Ürün detayları çekerken hata oluştu.");
@@ -31,7 +29,7 @@ const SingleProduct = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id, axios]);
 
   const incrementQuantity = () => {
     if (quantity < product.stock) {

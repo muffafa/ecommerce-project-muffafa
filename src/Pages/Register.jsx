@@ -1,11 +1,12 @@
 // src/Pages/Register.jsx
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import axios from "../api/axios"; // Import Axios instance
+import useCustomAxios from "../hooks/useCustomAxios"; // Import the custom axios hook
 import "./CSS/LoginSignup.css"; // Import the CSS file
 
 function Register() {
   const navigate = useNavigate();
+  const axios = useCustomAxios(); // Use the custom axios hook
 
   const formik = useFormik({
     initialValues: {
@@ -15,8 +16,8 @@ function Register() {
     },
     onSubmit: async (values) => {
       try {
-        // Send registration request to the API using Axios
-        const response = await axios.post("/users", {
+        // Send registration request to the API using custom axios
+        const response = await axios.post("/users/register", {
           name: values.name,
           email: values.email,
           password: values.password,

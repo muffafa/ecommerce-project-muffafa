@@ -1,6 +1,6 @@
 // src/Components/CategoryManagement.jsx
 import { useEffect, useState } from "react";
-import axios from "../../api/axios";
+import useCustomAxios from "../../hooks/useCustomAxios"; // Import the custom axios hook
 import { useFormik } from "formik";
 import "./CategoryManagement.css"; // Import the CSS file
 
@@ -8,6 +8,7 @@ const CategoryManagement = () => {
   const [categories, setCategories] = useState([]);
   const [editingId, setEditingId] = useState(null); // Düzenlenen kategori ID'si
   const [loading, setLoading] = useState(false);
+  const axios = useCustomAxios(); // Use the custom axios hook
 
   useEffect(() => {
     fetchCategories();
@@ -16,12 +17,7 @@ const CategoryManagement = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/categories", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get("/categories");
       setCategories(response.data);
     } catch (error) {
       console.error("Kategoriler yüklenirken bir hata oluştu:", error);
@@ -37,29 +33,12 @@ const CategoryManagement = () => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        const token = localStorage.getItem("token");
         if (editingId) {
-          await axios.put(
-            `/categories/${editingId}`,
-            { name: values.name },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          await axios.put(`/categories/${editingId}`, { name: values.name });
           setEditingId(null);
           alert("Kategori başarıyla güncellendi.");
         } else {
-          await axios.post(
-            "/categories",
-            { name: values.name },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          await axios.post("/categories", { name: values.name });
           alert("Kategori başarıyla eklendi.");
         }
         fetchCategories(); // Kategori listesini yeniden yükler
@@ -73,12 +52,7 @@ const CategoryManagement = () => {
 
   const handleDeleteCategory = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`/categories/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(`/categories/${id}`);
       fetchCategories(); // Kategori listesini yeniden yükler
       alert("Kategori başarıyla silindi.");
     } catch (error) {

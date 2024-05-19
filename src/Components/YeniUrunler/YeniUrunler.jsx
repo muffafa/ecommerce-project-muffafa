@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "../../api/axios";
 import { Link } from "react-router-dom";
+import useCustomAxios from "../../hooks/useCustomAxios";
 import "./YeniUrunler.css";
 
 const YeniUrunler = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filterCategory, setFilterCategory] = useState("");
+  const axios = useCustomAxios();
 
   useEffect(() => {
     fetchCategories();
@@ -14,22 +15,20 @@ const YeniUrunler = () => {
   }, []);
 
   const fetchCategories = async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get("/categories", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setCategories(response.data);
+    try {
+      const response = await axios.get("/categories");
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Kategorileri çekerken hata oluştu:", error);
+    }
   };
 
   const fetchProducts = async (categoryId = "") => {
-    const token = localStorage.getItem("token");
     const endpoint = categoryId
       ? `/products?category=${categoryId}`
       : "/products";
     try {
-      const response = await axios.get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(endpoint);
       setProducts(response.data);
     } catch (error) {
       console.error("Ürünleri çekerken hata oluştu:", error);
