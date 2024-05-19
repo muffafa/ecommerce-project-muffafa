@@ -1,7 +1,6 @@
 import "./Footer.css";
 import logo from "../Assets/logo.png";
-import { useLocation } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 function Footer() {
   const location = useLocation();
@@ -17,13 +16,10 @@ function Footer() {
           <h1>Hızlı Menü</h1>
           <ul className="nav-menu">
             <li className="nav-item">
-              <a href="/">Anasayfa</a>
-              {/* <Link to={"/"}>Anasayfa</Link> */}
+              <Link to="/">Anasayfa</Link>
             </li>
-
             <li className="nav-item">
-              {/* <Link to={"/market"}>Market</Link> */}
-              <a href="./market">Market</a>
+              <Link to="/market">Market</Link>
             </li>
             <li className="nav-item">
               <a
@@ -37,7 +33,6 @@ function Footer() {
           </ul>
         </>
       )}
-
       <div className="footer-copyright">
         <hr />
         <p>© 2024, Tüm Hakları Saklıdır.</p>

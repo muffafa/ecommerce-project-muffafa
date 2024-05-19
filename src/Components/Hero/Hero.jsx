@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 import runningMan from "../Assets/running-man-icon.png";
 import groceries from "../Assets/groceries.png";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 function Hero() {
   return (
@@ -16,7 +17,9 @@ function Hero() {
           <p>Fırsatları</p>
           <p className="hero-left-subtitle">Hemen Yakala!</p>
         </div>
-        <a href="./market" style={{ textDecoration: "none" }}>
+        <Link to="/market" style={{ textDecoration: "none" }}>
+          {" "}
+          {/* Replace a with Link */}
           <div className="firsatlar-btn-container">
             <div>Tüm Ürünler</div>
             <FontAwesomeIcon
@@ -24,7 +27,7 @@ function Hero() {
               icon={faCircleArrowRight}
             ></FontAwesomeIcon>
           </div>
-        </a>
+        </Link>
       </div>
       <div className="hero-right">
         <img src={groceries} alt="Fırsatı Kaçırma!" />
