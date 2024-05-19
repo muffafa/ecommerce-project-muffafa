@@ -17,7 +17,7 @@ function Register() {
     onSubmit: async (values) => {
       try {
         // Send registration request to the API using custom axios
-        const response = await axios.post("/users/register", {
+        const response = await axios.post("/users", {
           name: values.name,
           email: values.email,
           password: values.password,
