@@ -1,0 +1,156 @@
+.single-product {
+  display: flex;
+  flex-direction: column;
+  margin: 64px 24px;
+  align-items: center; /* Merkeze hizalama */
+}
+
+.single-product-left {
+  display: flex;
+  justify-content: center;
+}
+
+.single-product-main-image {
+  background-color: #ff8d27;
+  width: 100%;
+  max-width: 400px; /* Maksimum genişlik */
+  height: auto; /* Otomatik yükseklik */
+  border: 1px solid black;
+  object-fit: cover; /* Resmin boyutuna uyum sağlar */
+}
+
+.single-product-right {
+  margin: 64px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Merkeze hizalama */
+  width: 100%;
+  max-width: 500px; /* Maksimum genişlik */
+}
+
+.single-product-right h1 {
+  color: #000f08;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center; /* Ortala */
+}
+
+.single-product-prices {
+  display: flex;
+  margin: 32px 0px;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  justify-content: center; /* Merkeze hizalama */
+}
+
+.single-product-price-old {
+  color: #8c8c8c;
+  text-decoration: line-through;
+}
+
+.single-product-price-new {
+  color: #000f08;
+}
+
+.add-to-cart-counter {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Merkeze hizalama */
+  align-items: center;
+  margin-top: 32px;
+}
+
+.cart-adjust-quantity {
+  padding: 8px;
+  border: 1px solid rgba(0, 15, 8, 0.1);
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000f08;
+}
+
+.add-to-cart-quantity {
+  padding: 8px 32px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 15, 8, 0.1);
+  border-radius: 8px;
+  font-size: 16px;
+  color: #000f08;
+}
+
+.add-to-cart {
+  padding: 24px 48px;
+  font-size: 16px;
+  background-color: #ff8d27;
+  color: #fff;
+  margin-top: 48px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-to-cart:hover {
+  background-color: #f16b44;
+}
+
+/* Desktop Responsive Query */
+
+@media screen and (min-width: 768px) {
+  .single-product {
+    margin: 64px 160px;
+    flex-direction: row;
+  }
+
+  .single-product-left {
+    gap: 16px;
+  }
+
+  .single-product-main-image {
+    width: 100%;
+    max-width: 600px; /* Maksimum genişlik */
+    height: auto; /* Otomatik yükseklik */
+  }
+
+  .single-product-right {
+    margin: 0 72px;
+    align-items: flex-start; /* Başlangıca hizala */
+  }
+
+  .single-product-right h1 {
+    font-size: 32px;
+    text-align: left; /* Solda hizala */
+  }
+
+  .single-product-prices {
+    margin: 32px 0px;
+    gap: 32px;
+    font-size: 24px;
+    justify-content: flex-start; /* Başlangıca hizala */
+  }
+
+  .add-to-cart-counter {
+    width: auto;
+    margin-top: 64px;
+  }
+
+  .cart-adjust-quantity {
+    padding: 8px;
+    font-size: 16px;
+  }
+
+  .add-to-cart-quantity {
+    padding: 8px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .add-to-cart {
+    padding: 24px 48px;
+    font-size: 16px;
+    margin-top: 48px;
+    border-radius: 8px;
+  }
+}

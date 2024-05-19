@@ -1,0 +1,11 @@
+@host = http://localhost:3000
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2ZkY2IyNTA0MWU5MjE2NTU2NTJmYiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcxNTQ3Nzc1NywiZXhwIjoxNzE1NDgxMzU3fQ.zeSu9YcKmnRYH0GZEyTF2J2DXsbgVw1dW2ANl7V36p0
+@productId = 664015982b46ea159e29061a
+
+POST {{host}}/api/users/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "a@a.com",
+  "password": "deneme123"
+}
