@@ -10,7 +10,7 @@ import { MarketContext } from "../../Context/MarketContext";
 
 function Navbar() {
   const { user, logout } = useAuth();
-  const { cart } = useContext(MarketContext); // Get the cart context
+  const { cart } = useContext(MarketContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {

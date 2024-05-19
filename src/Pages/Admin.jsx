@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import "./CSS/Admin.css"; // Import the CSS file
+import "./CSS/Admin.css";
 
 const Admin = () => {
   return (

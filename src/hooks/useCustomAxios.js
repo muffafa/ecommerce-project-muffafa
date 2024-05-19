@@ -1,4 +1,3 @@
-// src/hooks/useCustomAxios.js
 import axios from "axios";
 
 const useCustomAxios = () => {
@@ -21,10 +20,10 @@ const useCustomAxios = () => {
     (response) => response,
     (error) => {
       if (error.response && error.response.status === 401) {
-        // Handle unauthorized errors
+        // unauthorized sorunları için
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        window.location.href = "/login"; // Redirect to login page
+        window.location.href = "/login";
       }
       return Promise.reject(error);
     }

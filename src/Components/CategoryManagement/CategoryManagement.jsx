@@ -1,14 +1,13 @@
-// src/Components/CategoryManagement.jsx
 import { useEffect, useState } from "react";
-import useCustomAxios from "../../hooks/useCustomAxios"; // Import the custom axios hook
+import useCustomAxios from "../../hooks/useCustomAxios";
 import { useFormik } from "formik";
-import "./CategoryManagement.css"; // Import the CSS file
+import "./CategoryManagement.css";
 
 const CategoryManagement = () => {
   const [categories, setCategories] = useState([]);
   const [editingId, setEditingId] = useState(null); // Düzenlenen kategori ID'si
   const [loading, setLoading] = useState(false);
-  const axios = useCustomAxios(); // Use the custom axios hook
+  const axios = useCustomAxios();
 
   useEffect(() => {
     fetchCategories();

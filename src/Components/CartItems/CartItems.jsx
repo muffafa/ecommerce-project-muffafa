@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { MarketContext } from "../../Context/MarketContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
-import useCustomAxios from "../../hooks/useCustomAxios"; // Import the custom axios hook
+import useCustomAxios from "../../hooks/useCustomAxios";
 
 function CartItems() {
   const { cart, setCart, addToCart, removeFromCart } =
@@ -19,8 +19,8 @@ function CartItems() {
 
   const handleApplyPromoCode = () => {
     if (promoCode === "TapTaze10") {
-      setDiscount(0.1); // 10% discount
-      setError(""); // Clear any previous error
+      setDiscount(0.1); // %10 indiri
+      setError(""); // Önceki hataları temizle
     } else {
       setError("Geçersiz promosyon kodu");
       setDiscount(0);

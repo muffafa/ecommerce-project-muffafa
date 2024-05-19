@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import { useFormik } from "formik";
-import "./UserManagement.css"; // Import the CSS file
+import "./UserManagement.css";
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
-  const [editingId, setEditingId] = useState(null); // Düzenlenen kullanıcı ID'si
+  const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const axios = useCustomAxios(); // Use the custom axios hook
+  const axios = useCustomAxios();
 
   useEffect(() => {
     fetchUsers();

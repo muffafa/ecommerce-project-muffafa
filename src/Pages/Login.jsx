@@ -1,8 +1,7 @@
-// src/Pages/Login.jsx
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import useCustomAxios from "../hooks/useCustomAxios"; // useCustomAxios hook'u import edilir
+import useCustomAxios from "../hooks/useCustomAxios";
 import "./CSS/LoginSignup.css";
 
 function LoginSignup() {
@@ -17,7 +16,6 @@ function LoginSignup() {
     },
     onSubmit: async (values) => {
       try {
-        // API'ye login isteği gönderilir (useCustomAxios kullanılarak)
         const response = await axios.post("/users/login", {
           email: values.email,
           password: values.password,
@@ -26,14 +24,13 @@ function LoginSignup() {
 
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data));
-        login(data); // Kullanıcı bilgileriyle login fonksiyonunu çağır
+        login(data);
         if (data.isAdmin) {
-          navigate("/admin"); // Admin kullanıcılar için admin paneline yönlendir
+          navigate("/admin");
         } else {
-          navigate("/"); // Diğer kullanıcılar için anasayfaya yönlendir
+          navigate("/");
         }
       } catch (error) {
-        // HTTP durum koduna göre hata mesajı göster
         alert(
           "Login failed: " + (error.response?.data?.message || error.message)
         );
@@ -42,7 +39,7 @@ function LoginSignup() {
   });
 
   const handleRegisterRedirect = () => {
-    navigate("/register"); // Kullanıcıyı kayıt sayfasına yönlendir
+    navigate("/register");
   };
 
   return (

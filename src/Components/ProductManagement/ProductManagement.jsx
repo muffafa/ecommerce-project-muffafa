@@ -1,4 +1,3 @@
-// src/Components/ProductManagement.jsx
 import { useEffect, useState } from "react";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import { useFormik } from "formik";
@@ -11,7 +10,7 @@ const ProductManagement = () => {
   const [filterCategory, setFilterCategory] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const axios = useCustomAxios(); // Use the custom axios hook
+  const axios = useCustomAxios();
 
   useEffect(() => {
     fetchCategories();

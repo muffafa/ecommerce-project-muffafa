@@ -1,12 +1,11 @@
-// src/Pages/Register.jsx
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import useCustomAxios from "../hooks/useCustomAxios"; // Import the custom axios hook
-import "./CSS/LoginSignup.css"; // Import the CSS file
+import useCustomAxios from "../hooks/useCustomAxios";
+import "./CSS/LoginSignup.css";
 
 function Register() {
   const navigate = useNavigate();
-  const axios = useCustomAxios(); // Use the custom axios hook
+  const axios = useCustomAxios();
 
   const formik = useFormik({
     initialValues: {
@@ -16,7 +15,6 @@ function Register() {
     },
     onSubmit: async (values) => {
       try {
-        // Send registration request to the API using custom axios
         const response = await axios.post("/users", {
           name: values.name,
           email: values.email,
@@ -25,10 +23,9 @@ function Register() {
 
         if (response.status === 201) {
           alert("Registration successful!");
-          navigate("/login"); // Redirect to login page on successful registration
+          navigate("/login");
         }
       } catch (error) {
-        // Show error message based on HTTP status code
         alert(
           "Registration failed: " +
             (error.response?.data?.message || error.message)
@@ -38,7 +35,7 @@ function Register() {
   });
 
   const handleLoginRedirect = () => {
-    navigate("/login"); // Redirect user to login page
+    navigate("/login");
   };
 
   return (

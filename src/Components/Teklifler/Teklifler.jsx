@@ -1,6 +1,6 @@
 import "./Teklifler.css";
 import groceryBags from "../Assets/grocery-bags.png";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 
 function Teklifler() {
   return (
@@ -12,8 +12,6 @@ function Teklifler() {
           Yalnızca kısıtlı bir süreliğine geçerli sana özel indirimleri kaçırma.
         </p>
         <Link to="/market" style={{ textDecoration: "none" }}>
-          {" "}
-          {/* Replace a with Link */}
           <button>Hemen Gözat</button>
         </Link>
       </div>
