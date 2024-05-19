@@ -1,11 +1,11 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { Resend } = require("resend");
 
 // Tüm kullanıcıları getir
 exports.getUsers = async (req, res) => {
   try {
-    // Yalnızca adminler tüm kullanıcıları görebilir
     if (!req.user.isAdmin) {
       return res.status(403).json({ message: "Bu işlem için yetkiniz yok." });
     }
@@ -61,12 +61,12 @@ exports.registerUser = async (req, res) => {
         .json({ message: "E-posta adresi zaten kullanımda." });
     }
 
-    // Şifreyi burada hashlemeyin, Mongoose modeli bunu halleder
     const newUser = new User({
       name,
       email,
-      password, // Doğrudan şifreyi burada kullan
+      password,
       isAdmin: false,
+      isSubscribedToNewsletter: false, // Set this to false by default
     });
 
     await newUser.save();
@@ -95,13 +95,14 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
-      { expiresIn: "3m" }
+      { expiresIn: "1h" }
     );
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      isSubscribedToNewsletter: user.isSubscribedToNewsletter,
       token,
     });
   } catch (error) {
@@ -120,17 +121,18 @@ exports.updateUser = async (req, res) => {
   }
 
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, isSubscribedToNewsletter } = req.body;
     const updateData = {};
 
-    // İsim, e-posta ve yönetici durumu güncellemeleri
     if (name) updateData.name = name;
     if (email) updateData.email = email;
     if (req.body.hasOwnProperty("isAdmin") && isAdmin) {
       updateData.isAdmin = req.body.isAdmin;
     }
+    if (req.body.hasOwnProperty("isSubscribedToNewsletter")) {
+      updateData.isSubscribedToNewsletter = isSubscribedToNewsletter;
+    }
 
-    // Şifre yalnızca verilmişse güncellenir
     if (password) {
       const salt = await bcrypt.genSalt(10);
       updateData.password = await bcrypt.hash(password, salt);
@@ -165,5 +167,57 @@ exports.deleteUser = async (req, res) => {
     res.json({ message: "Kullanıcı silindi." });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+const resend = new Resend(process.env.RESEND_KEY);
+
+// Newsletter subscription
+exports.subscribeNewsletter = async (req, res) => {
+  const userId = req.user._id;
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "E-posta adresi gereklidir." });
+  }
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
+    }
+
+    user.isSubscribedToNewsletter = true;
+    await user.save();
+
+    try {
+      // Send confirmation email using Resend API
+      const { data, error } = await resend.emails.send({
+        from: "Acme <onboarding@resend.dev>",
+        to: [email],
+        subject: "Bülten Aboneliğiniz Onaylandı",
+        html: "<p>Bülten aboneliğiniz onaylandı!</p>",
+      });
+
+      if (error) {
+        return res.status(200).json({
+          message:
+            "Bülten aboneliğiniz onaylandı fakat onay maili gönderilemedi.",
+        });
+      }
+
+      res.status(200).json({ message: "Bülten aboneliğiniz onaylandı!" });
+    } catch (emailError) {
+      res.status(200).json({
+        message:
+          "Bülten aboneliğiniz onaylandı fakat onay maili gönderilemedi.",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "Bülten aboneliği sırasında bir hata oluştu.",
+      error: error.message,
+    });
   }
 };
