@@ -21,14 +21,14 @@ router
 // Kullanıcı girişi için ayrı bir rota
 router.post("/login", loginUser); // Herkes giriş yapabilir
 
+// Newsletter subscription route
+router.post("/subscribe", protect, subscribeNewsletter);
+
 // ID ile spesifik kullanıcı işlemleri, koruma altında
 router
   .route("/:id")
   .get(protect, getUserById) // Sadece adminler belirli bir kullanıcıyı görebilir
   .put(protect, updateUser) // Sadece adminler kullanıcı güncelleyebilir
   .delete(protect, deleteUser); // Sadece adminler kullanıcı silebilir
-
-// Newsletter subscription route
-router.post("/subscribe", protect, subscribeNewsletter);
 
 module.exports = router;

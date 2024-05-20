@@ -175,11 +175,6 @@ const resend = new Resend(process.env.RESEND_KEY);
 // Newsletter subscription
 exports.subscribeNewsletter = async (req, res) => {
   const userId = req.user._id;
-  const { email } = req.body;
-
-  if (!email) {
-    return res.status(400).json({ message: "E-posta adresi gereklidir." });
-  }
 
   try {
     const user = await User.findById(userId);
@@ -194,7 +189,7 @@ exports.subscribeNewsletter = async (req, res) => {
     try {
       const { data, error } = await resend.emails.send({
         from: "Acme <onboarding@resend.dev>",
-        to: [email],
+        to: user.email,
         subject: "Bülten Aboneliğiniz Onaylandı",
         html: "<p>Bülten aboneliğiniz onaylandı!</p>",
       });

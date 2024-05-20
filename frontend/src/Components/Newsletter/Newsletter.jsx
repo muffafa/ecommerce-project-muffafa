@@ -10,6 +10,7 @@ function Newsletter() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   useEffect(() => {
     if (user) {
@@ -20,6 +21,7 @@ function Newsletter() {
 
   const fetchSubscriptionStatus = async () => {
     if (user) {
+      setLoading(true);
       try {
         const response = await axiosRef.current.get(`/users/${user._id}`);
         setIsSubscribed(response.data.isSubscribedToNewsletter);
@@ -28,6 +30,8 @@ function Newsletter() {
           "Bülten abonelik durumu yüklenirken bir hata oluştu:",
           error
         );
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -38,19 +42,21 @@ function Newsletter() {
       return;
     }
 
+    setLoading(true);
     try {
-      const response = await axiosRef.current.post("/users/subscribe", {
-        email,
-      });
+      const response = await axiosRef.current.post("/users/subscribe");
       if (response.status === 200) {
         setIsSubscribed(true);
-        setMessage(response.data.message);
+        setMessage(""); // Clear message to avoid conflict
+        alert(response.data.message);
       }
     } catch (error) {
       setMessage(
         "Abonelik işlemi sırasında bir hata oluştu: " +
           (error.response?.data?.message || error.message)
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,8 +80,10 @@ function Newsletter() {
         Bizden en güncel teklifler ve haberler için bültenimize abone olmayı
         unutma.
       </p>
-      {isSubscribed ? (
-        <p>Zaten bültenimize abonesiniz.</p>
+      {loading ? (
+        <p style={{ color: "orange" }}>Yükleniyor...</p>
+      ) : isSubscribed ? (
+        <p style={{ color: "orange" }}>Bültenimize abonesiniz.</p>
       ) : (
         <div>
           <input
