@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   name: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
-  isSubscribedToNewsletter: { type: Boolean, default: false }, // New field
+  isSubscribedToNewsletter: { type: Boolean, default: false },
 });
 
 // Şifre hashleme

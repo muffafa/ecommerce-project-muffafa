@@ -1,10 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-// Örneğin, Express.js uygulamasında
 const cors = require("cors");
 
-dotenv.config(); // Çevre değişkenlerini yükler
+dotenv.config(); // .env değişkenlerini yükler
 connectDB(); // Veritabanı bağlantısını başlatır
 
 const app = express();

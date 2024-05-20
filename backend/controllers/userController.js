@@ -66,7 +66,7 @@ exports.registerUser = async (req, res) => {
       email,
       password,
       isAdmin: false,
-      isSubscribedToNewsletter: false, // Set this to false by default
+      isSubscribedToNewsletter: false,
     });
 
     await newUser.save();
@@ -192,7 +192,6 @@ exports.subscribeNewsletter = async (req, res) => {
     await user.save();
 
     try {
-      // Send confirmation email using Resend API
       const { data, error } = await resend.emails.send({
         from: "Acme <onboarding@resend.dev>",
         to: [email],

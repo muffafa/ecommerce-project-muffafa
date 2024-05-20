@@ -25,7 +25,7 @@ exports.getProductById = async (req, res) => {
     const product = await Product.findById(req.params.id).populate(
       "category",
       "name"
-    ); // Populate if needed
+    );
     if (product) {
       res.json(product);
     } else {
@@ -166,5 +166,43 @@ exports.purchaseProducts = async (req, res) => {
       message: "Ürün satın alma işlemi sırasında bir hata oluştu",
       error: error.message,
     });
+  }
+};
+
+exports.getTopDiscountedProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    const productsWithDiscounts = products
+      .map((product) => {
+        const discountPercentage =
+          product.oldPrice && product.oldPrice > 0
+            ? ((product.oldPrice - product.currentPrice) / product.oldPrice) *
+              100
+            : 0;
+        return { ...product._doc, discountPercentage };
+      })
+      .sort((a, b) => b.discountPercentage - a.discountPercentage)
+      .slice(0, 4);
+
+    res.json(productsWithDiscounts);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to retrieve products", error: error.message });
+  }
+};
+
+// Son güncellenen ürünleri getir
+exports.getTopUpdatedProducts = async (req, res) => {
+  try {
+    const products = await Product.find().sort({ updatedAt: -1 }).limit(8);
+    res.json(products);
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        message: "Failed to retrieve updated products",
+        error: error.message,
+      });
   }
 };

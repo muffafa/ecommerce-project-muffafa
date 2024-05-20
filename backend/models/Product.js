@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema(
     imageUrl: { type: String, required: true },
   },
   { timestamps: true }
-); // Add timestamps option here
+);
 
 const Product = mongoose.model("Product", productSchema);
 

@@ -8,7 +8,7 @@ const {
   updateUser,
   deleteUser,
   loginUser,
-  subscribeNewsletter, // New import
+  subscribeNewsletter,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -29,6 +29,6 @@ router
   .delete(protect, deleteUser); // Sadece adminler kullanıcı silebilir
 
 // Newsletter subscription route
-router.post("/subscribe", protect, subscribeNewsletter); // New route
+router.post("/subscribe", protect, subscribeNewsletter);
 
 module.exports = router;
