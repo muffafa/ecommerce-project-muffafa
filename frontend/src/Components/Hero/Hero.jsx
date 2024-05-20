@@ -12,7 +12,7 @@ function Hero() {
         <div>
           <div className="hero-icon-container">
             <h3>Bu Fırsat Kaçar!</h3>
-            <img src={runningMan} className="hero-icon" />
+            <img src={runningMan} className="hero-icon" alt="Running Man" />
           </div>
           <p>Fırsatları</p>
           <p className="hero-left-subtitle">Hemen Yakala!</p>
@@ -23,7 +23,7 @@ function Hero() {
             <FontAwesomeIcon
               className="hero-arrow-icon"
               icon={faCircleArrowRight}
-            ></FontAwesomeIcon>
+            />
           </div>
         </Link>
       </div>

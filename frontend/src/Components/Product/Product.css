@@ -1,37 +1,3 @@
-.yeni-urunler {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 400px;
-}
-
-.yeni-urunler h1 {
-  color: #000f08;
-  font-size: 32px;
-  font-weight: 600;
-}
-
-.yeni-urunler h1 span {
-  color: #ff8d27;
-}
-
-.yeni-urunler hr {
-  width: 85%;
-  border-radius: 8px;
-  background-color: rgba(0, 15, 8, 0.1);
-  border: none;
-  margin-bottom: 32px;
-}
-
-.yeni-urunler-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
 .product {
   border: solid 1px rgba(0, 15, 8, 0.1);
   background-color: #fdfff7;
@@ -83,6 +49,14 @@
   text-decoration: line-through;
 }
 
+.product-discount {
+  color: #ff0000;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  margin: 8px 0;
+}
+
 .product-button-container {
   display: flex;
   justify-content: center;
@@ -109,7 +83,7 @@
 }
 
 /* Desktop Responsive Query */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .yeni-urunler {
     margin-top: 200px;
     margin-bottom: 400px;
@@ -152,6 +126,10 @@
   }
 
   .product-price-old {
+    font-size: 16px;
+  }
+
+  .product-discount {
     font-size: 16px;
   }
 

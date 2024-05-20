@@ -1,12 +1,12 @@
-import "./Teklifler.css";
+import "./BosSepet.css";
 import groceryBags from "../Assets/grocery-bags.png";
 import { Link } from "react-router-dom";
 
-function Teklifler() {
+function BosSepet() {
   return (
     <div className="teklifler">
       <div className="teklifler-left">
-        <h1>Harika İndirimleri Kaçıracaksın! 😱</h1>
+        <h1>Olamaz! Sepetin Daha Boş Mu? 😱</h1>
         <h1 className="teklifler-subtitle">Acele Et!</h1>
         <p>
           Yalnızca kısıtlı bir süreliğine geçerli sana özel olan {}
@@ -26,4 +26,4 @@ function Teklifler() {
   );
 }
 
-export default Teklifler;
+export default BosSepet;

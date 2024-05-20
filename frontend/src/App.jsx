@@ -1,13 +1,18 @@
-import Hero from "./Components/Hero";
 import "./App.css";
+import Hero from "./Components/Hero";
+import Indirim from "./Components/Indirim";
+import Teklifler from "./Components/Teklifler";
 import Newsletter from "./Components/Newsletter";
-
+import SonGuncellenenUrunler from "./Components/SonGuncellenenUrunler";
 
 function App() {
   return (
     <>
-      <Hero></Hero>
-      <Newsletter></Newsletter>
+      <Hero />
+      <Indirim />
+      <Teklifler />
+      <SonGuncellenenUrunler />
+      <Newsletter />
     </>
   );
 }

@@ -1,9 +1,9 @@
-import YeniUrunler from "../Components/YeniUrunler";
+import TumUrunler from "../Components/TumUrunler";
 
 function Market() {
   return (
     <>
-      <YeniUrunler></YeniUrunler>
+      <TumUrunler></TumUrunler>
     </>
   );
 }

@@ -1,123 +1,132 @@
-.hero{
-    height: 80vh;
-    background: linear-gradient(180deg, #FF8D27 40%, #FFF );
-    display: flex;
+.hero {
+  height: 80vh;
+  background: linear-gradient(180deg, #ff8d27 40%, #fff);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.hero-left{
-    margin-top: 64px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    gap: 8px;
-    padding-left: 16px;
-    line-height: 1.1;
+.hero-left {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  padding-left: 16px;
+  line-height: 1.1;
+  flex: 1;
 }
 
-.hero-left h3{
-    color: #FFF;
-    font-size: 24px;
-    font-weight: 800;
+.hero-left h3 {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
 }
 
-.hero-left p{
-    color: #FFF;
-    font-size: 32px;
-    font-weight: 800;
+.hero-left p {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
 }
 
-.hero-left-subtitle{
-    color: #FFEC62 !important;
+.hero-left-subtitle {
+  color: #ffec62 !important;
 }
 
-.hero-icon-container{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 24px;
+.hero-icon-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
-.hero-icon{
-    width: 28px;
+.hero-icon {
+  width: 28px;
 }
 
-.firsatlar-btn-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    border-radius: 64px;
-    margin-top: 24px;
-    background-color: #FFF;
-    padding: 8px 16px;
-    color: #F16B44;
-    font-size: 12px;
-    font-weight: 600;
+.firsatlar-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 64px;
+  margin-top: 24px;
+  background-color: #fff;
+  padding: 8px 16px;
+  color: #f16b44;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-.hero-right{
-    display: none;
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  max-width: 50%;
+}
+
+.hero-right img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Desktop Responsive Query */
+@media screen and (min-width: 1024px) {
+  .hero {
+    height: 100vh;
+    box-shadow: 0px -10px 10px -15px rgba(0, 15, 8, 1) inset;
+  }
 
-@media screen and (min-width: 768px) {
+  .hero-left {
+    gap: 16px;
+    padding-left: 64px;
+    line-height: 1.1;
+    justify-content: center;
+    align-items: flex-start;
+  }
 
-    .hero{
-        height: 100vh;
-        box-shadow: 0px -10px 10px -15px rgba(0, 15, 8, 1) inset;
-    }
+  .hero-left h3 {
+    font-size: 32px;
+  }
 
-    .hero-left{
-        gap: 16px;
-        padding-left: 64px;
-        line-height: 1.1;
-        justify-content: center;
-        align-items: baseline;
-    }
+  .hero-left p {
+    font-size: 64px;
+  }
 
-    .hero-left h3{
-        font-size: 32px;
-    }
-    
-    .hero-left p{
-        font-size: 64px;
-    }
-    
-    .hero-icon-container{
-        gap: 24px;
-        margin-bottom: 48px;
-    }
-    
-    .hero-icon{
-        width: 42px;
-    }
+  .hero-icon-container {
+    gap: 24px;
+    margin-bottom: 48px;
+  }
 
-    .firsatlar-btn-container{
-        gap: 24px;
-        padding: 24px 48px;
-        border-radius: 64px;
-        margin-top: 24px;
-        font-size: 24px;
-        transition: 0.6s;
-        cursor: pointer;
-    }
+  .hero-icon {
+    width: 42px;
+  }
 
-    .firsatlar-btn-container:hover{
-        box-shadow: inset 400px 0 0 0 #F16B44;
-        color: #FFF;
-    }
+  .firsatlar-btn-container {
+    gap: 24px;
+    padding: 24px 48px;
+    border-radius: 64px;
+    margin-top: 24px;
+    font-size: 24px;
+    transition: 0.6s;
+    cursor: pointer;
+  }
 
-    .hero-right{
-        flex: 1;
-        display: flex;
-        align-items: end;
-        justify-content: end;
-    }
-    
-    .hero-right img{
-        width: 700px;
-    }
+  .firsatlar-btn-container:hover {
+    box-shadow: inset 400px 0 0 0 #f16b44;
+    color: #fff;
+  }
 
+  .hero-right {
+    flex: 1;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+  }
+
+  .hero-right img {
+    width: 700px;
+  }
 }

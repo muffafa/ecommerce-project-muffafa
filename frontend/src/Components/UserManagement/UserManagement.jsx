@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import { useFormik } from "formik";
 import "./UserManagement.css";
 
 const UserManagement = () => {
+  const customAxios = useCustomAxios();
+  const axiosRef = useRef(customAxios);
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const axios = useCustomAxios();
 
   useEffect(() => {
     fetchUsers();
@@ -17,7 +17,7 @@ const UserManagement = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/users");
+      const response = await axiosRef.current.get("/users");
       setUsers(response.data);
     } catch (error) {
       console.error(
@@ -48,10 +48,10 @@ const UserManagement = () => {
       }
       try {
         if (editingId) {
-          await axios.put(`/users/${editingId}`, data);
+          await axiosRef.current.put(`/users/${editingId}`, data);
           setEditingId(null);
         } else {
-          await axios.post("/users", data);
+          await axiosRef.current.post("/users", data);
         }
         fetchUsers();
         resetForm();
@@ -68,7 +68,7 @@ const UserManagement = () => {
 
   const handleDeleteUser = async (id) => {
     try {
-      await axios.delete(`/users/${id}`);
+      await axiosRef.current.delete(`/users/${id}`);
       fetchUsers();
       alert("Kullanıcı silme işlemi başarılı!");
     } catch (error) {

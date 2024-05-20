@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import { useFormik } from "formik";
 import "./CategoryManagement.css";
 
 const CategoryManagement = () => {
+  const customAxios = useCustomAxios();
+  const axiosRef = useRef(customAxios);
   const [categories, setCategories] = useState([]);
   const [editingId, setEditingId] = useState(null); // Düzenlenen kategori ID'si
   const [loading, setLoading] = useState(false);
-  const axios = useCustomAxios();
 
   useEffect(() => {
     fetchCategories();
@@ -16,7 +17,7 @@ const CategoryManagement = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/categories");
+      const response = await axiosRef.current.get("/categories");
       setCategories(response.data);
     } catch (error) {
       console.error("Kategoriler yüklenirken bir hata oluştu:", error);
@@ -33,11 +34,13 @@ const CategoryManagement = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         if (editingId) {
-          await axios.put(`/categories/${editingId}`, { name: values.name });
+          await axiosRef.current.put(`/categories/${editingId}`, {
+            name: values.name,
+          });
           setEditingId(null);
           alert("Kategori başarıyla güncellendi.");
         } else {
-          await axios.post("/categories", { name: values.name });
+          await axiosRef.current.post("/categories", { name: values.name });
           alert("Kategori başarıyla eklendi.");
         }
         fetchCategories(); // Kategori listesini yeniden yükler
@@ -51,7 +54,7 @@ const CategoryManagement = () => {
 
   const handleDeleteCategory = async (id) => {
     try {
-      await axios.delete(`/categories/${id}`);
+      await axiosRef.current.delete(`/categories/${id}`);
       fetchCategories(); // Kategori listesini yeniden yükler
       alert("Kategori başarıyla silindi.");
     } catch (error) {

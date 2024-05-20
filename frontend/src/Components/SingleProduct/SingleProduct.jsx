@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import DescriptionBox from "../DescriptionBox/DescriptionBox";
@@ -11,25 +11,29 @@ import { MarketContext } from "../../Context/MarketContext";
 const SingleProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const axios = useCustomAxios();
+  const customAxios = useCustomAxios();
+  const axiosRef = useRef(customAxios);
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(MarketContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`/products/${id}`);
+        const response = await axiosRef.current.get(`/products/${id}`);
         setProduct(response.data);
       } catch (error) {
         setError("Ürün detayları çekerken hata oluştu.");
         console.error("Ürün detayları çekerken hata oluştu:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [id, axios]);
+  }, [id]);
 
   const incrementQuantity = () => {
     if (quantity < product.stock) {
@@ -52,12 +56,12 @@ const SingleProduct = () => {
     }
   };
 
-  if (error) {
-    return <div>{error}</div>;
+  if (loading) {
+    return <div className="loading">Loading...</div>;
   }
 
-  if (!product) {
-    return <div>Loading...</div>;
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (

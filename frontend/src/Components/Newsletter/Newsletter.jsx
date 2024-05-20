@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import { useAuth } from "../../Context/AuthContext";
 import "./Newsletter.css";
 
 function Newsletter() {
   const { user } = useAuth();
-  const axios = useCustomAxios();
+  const customAxios = useCustomAxios();
+  const axiosRef = useRef(customAxios);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -20,7 +21,7 @@ function Newsletter() {
   const fetchSubscriptionStatus = async () => {
     if (user) {
       try {
-        const response = await axios.get(`/users/${user._id}`);
+        const response = await axiosRef.current.get(`/users/${user._id}`);
         setIsSubscribed(response.data.isSubscribedToNewsletter);
       } catch (error) {
         console.error(
@@ -38,7 +39,9 @@ function Newsletter() {
     }
 
     try {
-      const response = await axios.post("/users/subscribe", { email });
+      const response = await axiosRef.current.post("/users/subscribe", {
+        email,
+      });
       if (response.status === 200) {
         setIsSubscribed(true);
         setMessage(response.data.message);

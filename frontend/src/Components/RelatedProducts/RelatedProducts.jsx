@@ -1,18 +1,21 @@
 import PropTypes from "prop-types";
 import "./RelatedProducts.css";
 import useCustomAxios from "../../hooks/useCustomAxios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Product from "../Product/Product";
 
 function RelatedProducts({ categoryId, currentProductId }) {
-  const axios = useCustomAxios();
+  const customAxios = useCustomAxios();
+  const axiosRef = useRef(customAxios);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRelatedProducts = async () => {
       try {
-        const response = await axios.get(`/products?category=${categoryId}`);
+        const response = await axiosRef.current.get(
+          `/products?category=${categoryId}`
+        );
         const filteredProducts = response.data.filter(
           (product) => product._id !== currentProductId
         );
@@ -25,12 +28,14 @@ function RelatedProducts({ categoryId, currentProductId }) {
     };
 
     if (categoryId) {
+      setLoading(true);
+      setRelatedProducts([]);
       fetchRelatedProducts();
     }
-  }, [categoryId, currentProductId, axios]);
+  }, [categoryId, currentProductId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   if (relatedProducts.length === 0) {

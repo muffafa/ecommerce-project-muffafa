@@ -88,7 +88,7 @@
   background-color: #f16b44;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .user-management label,
   .user-management input[type="text"],
   .user-management input[type="email"],

@@ -84,7 +84,7 @@
   background-color: #f16b44;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .category-management label,
   .category-management input[type="text"] {
     flex: 1 1 100%;

@@ -60,7 +60,7 @@
 
 /* Desktop Responsive Query */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .newsletter {
     width: 100vw;
     max-width: 100%;

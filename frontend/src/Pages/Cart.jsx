@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import CartItems from "../Components/CartItems";
-import Teklifler from "../Components/Teklifler";
 import { MarketContext } from "../Context/MarketContext";
+import BosSepet from "../Components/BosSepet";
 
 function Cart() {
   const { cart } = useContext(MarketContext);
@@ -12,7 +12,7 @@ function Cart() {
         <CartItems />
       ) : (
         <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-          <Teklifler />
+          <BosSepet />
         </div>
       )}
     </div>

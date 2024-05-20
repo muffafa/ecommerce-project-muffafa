@@ -19,7 +19,7 @@ function CartItems() {
 
   const handleApplyPromoCode = () => {
     if (promoCode === "TapTaze10") {
-      setDiscount(0.1); // %10 indiri
+      setDiscount(0.1); // %10 indirim
       setError(""); // Önceki hataları temizle
     } else {
       setError("Geçersiz promosyon kodu");

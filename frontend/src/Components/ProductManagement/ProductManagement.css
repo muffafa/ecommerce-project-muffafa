@@ -86,7 +86,7 @@
   background-color: #f16b44;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .product-management label,
   .product-management input[type="text"],
   .product-management input[type="number"],

@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useCustomAxios from "../../hooks/useCustomAxios";
 import { useFormik } from "formik";
 import "./ProductManagement.css";
 
 const ProductManagement = () => {
+  const customAxios = useCustomAxios();
+  const axiosRef = useRef(customAxios);
   const [products, setProducts] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [categories, setCategories] = useState([]);
   const [filterCategory, setFilterCategory] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const axios = useCustomAxios();
 
   useEffect(() => {
     fetchCategories();
@@ -20,7 +20,7 @@ const ProductManagement = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/categories");
+      const response = await axiosRef.current.get("/categories");
       setCategories(response.data);
     } catch (error) {
       console.error("Kategoriler yüklenirken hata oluştu:", error);
@@ -34,7 +34,7 @@ const ProductManagement = () => {
       ? `/products?category=${categoryId}`
       : "/products";
     try {
-      const response = await axios.get(endpoint);
+      const response = await axiosRef.current.get(endpoint);
       setProducts(response.data);
     } catch (error) {
       console.error("Ürünler yüklenirken hata oluştu:", error);
@@ -69,10 +69,12 @@ const ProductManagement = () => {
       };
       try {
         if (editingId) {
-          await axios.put(`/products/${editingId}`, values, { headers });
+          await axiosRef.current.put(`/products/${editingId}`, values, {
+            headers,
+          });
           setEditingId(null);
         } else {
-          await axios.post("/products", values, { headers });
+          await axiosRef.current.post("/products", values, { headers });
         }
         fetchProducts();
         resetForm();
@@ -86,7 +88,7 @@ const ProductManagement = () => {
 
   const handleDeleteProduct = async (id) => {
     try {
-      await axios.delete(`/products/${id}`, {
+      await axiosRef.current.delete(`/products/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       fetchProducts();

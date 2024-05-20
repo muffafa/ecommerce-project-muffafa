@@ -1,33 +1,42 @@
-.related-products {
+.yeni-urunler {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 24px;
   width: 100%;
-  margin-top: 20px;
+  max-width: 100%;
+  margin-bottom: 400px;
 }
 
-.related-products h1 {
+.yeni-urunler h1 {
   color: #000f08;
   font-size: 32px;
   font-weight: 600;
 }
 
-.related-products hr {
-  width: 20%;
-  height: 4px;
-  border-radius: 8px;
-  background: #ff8d27;
+.yeni-urunler h1 span {
+  color: #ff8d27;
 }
 
-.related-products-item {
-  margin-top: 48px;
-  margin-bottom: 48px;
+.yeni-urunler hr {
+  width: 85%;
+  border-radius: 8px;
+  background-color: rgba(0, 15, 8, 0.1);
+  border: none;
+  margin-bottom: 32px;
+}
+
+.yeni-urunler-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 24px; /* This sets the gap between grid items */
   width: 100%;
   max-width: 1200px;
+}
+
+.yeni-urunler-container a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .product {
@@ -37,10 +46,11 @@
   border-radius: 16px;
   transition: 0.3s;
   cursor: pointer;
+  text-align: center;
 }
 
 .product img {
-  width: 50px;
+  width: 75px;
   background-color: #ff8d27;
   padding: 24px;
   transition: 0.3s;
@@ -53,10 +63,10 @@
 }
 
 .product p {
+  margin: 10px 0;
   color: #000f08;
   font-size: 16px;
   font-weight: 800;
-  margin: 8px 0;
   text-align: center;
 }
 
@@ -69,19 +79,17 @@
 }
 
 .product-price-new {
-  color: #000f08;
-  font-size: 16px;
-  font-weight: 600;
+  color: #ff8d27;
+  font-weight: bold;
 }
 
 .product-price-old {
   color: #8c8c8c;
-  font-size: 12px;
-  font-weight: 500;
   text-decoration: line-through;
 }
 
 .product-button-container {
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,37 +121,39 @@
   margin-top: 20px;
 }
 
-
 /* Desktop Responsive Query */
 @media screen and (min-width: 1024px) {
-  .related-products {
-    gap: 8px;
+  .yeni-urunler {
+    margin-top: 200px;
+    margin-bottom: 400px;
+    gap: 24px;
   }
 
-  .related-products h1 {
+  .yeni-urunler h1 {
     font-size: 48px;
-    font-weight: 600;
+    margin-bottom: 8px;
   }
 
-  .related-products hr {
-    width: 20%;
-    height: 8px;
+  .yeni-urunler hr {
+    width: 85%;
     border-radius: 8px;
+    margin-bottom: 64px;
   }
 
-  .related-products-item {
+  .yeni-urunler-container {
     grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
+    gap: 64px; /* Adjust this gap for larger screens */
   }
 
   .product img {
-    max-width: 100px;
-    padding: 16px;
+    width: 150px;
+    padding: 48px;
   }
 
   .product p {
-    font-size: 18px;
+    font-size: 24px;
     margin: 8px 0;
+    margin-bottom: 16px;
   }
 
   .product-prices {
@@ -151,15 +161,16 @@
   }
 
   .product-price-new {
-    font-size: 18px;
+    font-size: 24px;
   }
 
   .product-price-old {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .purchase-button {
     padding: 8px 24px;
-    font-size: 14px;
+    margin: 32px 0 8px 0;
+    font-size: 16px;
   }
 }
