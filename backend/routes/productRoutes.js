@@ -7,6 +7,8 @@ const {
   updateProduct,
   deleteProduct,
   purchaseProducts,
+  getTopDiscountedProducts,
+  getTopUpdatedProducts,
 } = require("../controllers/productController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -15,6 +17,15 @@ router
   .get(getProducts) // Tüm kullanıcılar ürünleri görebilir
   .post(protect, createProduct); // Sadece adminler yeni ürün ekleyebilir
 
+// Ürünleri satın alma route'u (Kullanıcı girişi gerektirir)
+router.post("/purchase", protect, purchaseProducts);
+
+// En çok indirimdeki ürünleri getirmek için
+router.get("/top-discounted", getTopDiscountedProducts);
+
+// Son güncellenen ürünleri getirmek için
+router.get("/top-updated", getTopUpdatedProducts);
+
 router
   .route("/:id")
   .get(getProductById) // Tüm kullanıcılar belirli bir ürünü görebilir
@@ -22,6 +33,3 @@ router
   .delete(protect, deleteProduct); // Sadece adminler ürün silebilir
 
 module.exports = router;
-
-// Ürünleri satın alma route'u (Kullanıcı girişi gerektirir)
-router.post('/purchase', protect, purchaseProducts);
