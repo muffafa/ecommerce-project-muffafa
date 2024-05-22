@@ -8,12 +8,12 @@ connectDB(); // Veritabanı bağlantısını başlatır
 
 const app = express();
 
-//app.use(cors()); // Tüm domainlerden gelen isteklere izin ver
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Yalnızca bu origin'den gelen isteklere izin ver
-  })
-);
+app.use(cors()); // Tüm domainlerden gelen isteklere izin ver
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173", // Yalnızca bu origin'den gelen isteklere izin ver
+//   })
+// );
 
 app.use(express.json()); // Body parser middleware
 
