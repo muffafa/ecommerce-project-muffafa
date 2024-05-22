@@ -2,7 +2,7 @@ import axios from "axios";
 
 const useCustomAxios = () => {
   const instance = axios.create({
-    baseURL: "https://ecommerce-project-muffafa.onrender.com:3000/api",
+    baseURL: "https://ecommerce-project-muffafa.onrender.com/api",
   });
 
   instance.interceptors.request.use(
