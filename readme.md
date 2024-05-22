@@ -7,10 +7,14 @@ by
 
 > Department of Computer Engineering <br> Çukurova University
 
-## Review video YouTube link of the website
+## Review Video (YouTube Link) of the Project
 
 https://www.youtube.com/watch?v=zkdGv8fMXQI
 
-## Deployment link of the website to examine
+## Deployment Link of the Project to Examine
 
 https://ecommerce-project-muffafa-1.onrender.com/
+
+## Report Link of the Project
+
+[TapTaze - E-Commerce .pdf](<TapTaze - E-Commerce .pdf>)
